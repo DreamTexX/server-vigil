@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../agent"
+		},
+		{
+			"path": "../manager"
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"flowbite"
+		]
+	}
+}
