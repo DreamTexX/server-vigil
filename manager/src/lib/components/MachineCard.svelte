@@ -1,23 +1,19 @@
-<script lang="ts" context="module">
-    export interface Machine {
-        id: string;
-        name: string;
-        hostname: string;
-        lastPing: Date;
-        group: string;
-    }
-</script>
-
 <script lang="ts">
     import { Badge, Card, Dropdown, DropdownItem, ToolbarButton, Tooltip } from "flowbite-svelte";
     import { DotsVerticalOutline } from "flowbite-svelte-icons";
     import { format, formatDistance, differenceInMinutes } from "date-fns";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
+    import type { Machine, Measurement } from "$lib/server/schema";
 
     export let machine: Machine;
 
+    let measurement: Measurement | undefined;
     let now: Date = new Date();
     let ticker = setInterval(() => (now = new Date()), 30000);
+
+    onMount(() => {
+        // load latest measurement
+    });
 
     onDestroy(() => {
         clearInterval(ticker);
@@ -32,14 +28,22 @@
                     {machine.name}
                 </h5>
             </a>
-            <div>
-                <Badge color={differenceInMinutes(now, machine.lastPing) <= 5 ? "green" : "red"}>
-                    Last Ping: {formatDistance(machine.lastPing, now, { includeSeconds: true })} ago
-                </Badge>
-                <Tooltip placement="bottom">
-                    {format(machine.lastPing, "PPpp")}
-                </Tooltip>
-            </div>
+            {#if measurement}
+                <div>
+                    <Badge
+                        color={differenceInMinutes(now, measurement.createdAt) <= 5
+                            ? "green"
+                            : "red"}
+                    >
+                        Last Ping: {formatDistance(measurement.createdAt, now, {
+                            includeSeconds: true
+                        })} ago
+                    </Badge>
+                    <Tooltip placement="bottom">
+                        {format(measurement.createdAt, "PPpp")}
+                    </Tooltip>
+                </div>
+            {/if}
         </div>
         <div>
             <ToolbarButton>
@@ -55,11 +59,13 @@
     <div>
         <Badge color="dark">
             <span class="font-bold">Group:</span>
-            &nbsp;{machine.group}
+            &nbsp;Default
         </Badge>
-        <Badge color="dark">
-            <span class="font-bold">Hostname:</span>
-            &nbsp;{machine.hostname}
-        </Badge>
+        {#if measurement}
+            <Badge color="dark">
+                <span class="font-bold">Hostname:</span>
+                &nbsp;{measurement.hostname}
+            </Badge>
+        {/if}
     </div>
 </Card>

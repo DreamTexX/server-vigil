@@ -1,5 +1,5 @@
 {
-	"name": "Server Monitor",
+	"name": "Server Vigil",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
