@@ -4,7 +4,6 @@
     import NoContent from "$lib/components/NoContent.svelte";
     import { BREADCRUMBS_STORE } from "$lib/stores/breadcrumbs";
     import { Button, CloseButton, Drawer, Helper, Input, Label } from "flowbite-svelte";
-    import { tick } from "svelte";
 
     BREADCRUMBS_STORE.set([{ label: "Home", home: true, href: "/" }, { label: "Machines" }]);
 
