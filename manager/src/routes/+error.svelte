@@ -2,26 +2,25 @@
     import "../app.pcss";
 
     import { page } from "$app/stores";
-    import { Button, P } from "flowbite-svelte";
 </script>
 
 <main class="bg-gray-50 dark:bg-gray-900">
     <div
-        class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900 md:h-screen"
+        class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 md:h-screen dark:bg-gray-900"
     >
         <div class="text-center xl:max-w-4xl">
             <h1
-                class="mb-3 text-2xl font-bold leading-tight text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
+                class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white"
             >
                 {$page.status}
             </h1>
-            <P
-                class="mb-5 text-center text-base font-normal text-gray-500 dark:text-gray-400 md:text-lg"
+            <p
+                class="mb-5 text-center text-base font-normal text-gray-500 md:text-lg dark:text-gray-400"
             >
                 Oops! Looks like you followed a bad link. If you think this is a problem with us,
                 please tell us.
-            </P>
-            <Button href="/">
+            </p>
+            <a href="/" class="btn btn-primary">
                 <svg
                     class="-ml-1 mr-2 h-5 w-5"
                     fill="currentColor"
@@ -35,7 +34,7 @@
                     />
                 </svg>
                 Go back Home
-            </Button>
+            </a>
         </div>
     </div>
 </main>

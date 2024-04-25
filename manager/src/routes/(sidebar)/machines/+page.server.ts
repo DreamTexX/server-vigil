@@ -1,51 +1,54 @@
 import { db } from "$lib/server/db.js";
 import { machinesTable, type Machine } from "$lib/server/schema";
-import { fail, type ActionFailure, type ActionResult } from "@sveltejs/kit";
+import { error, fail } from "@sveltejs/kit";
 import { PostgresError } from "postgres";
-import { make } from "simple-body-validator";
+import { createMachineSchema } from "$lib/server/validator";
+import { ValidationError } from "yup";
+import { getMachines } from "$lib/server/services/machines.js";
+import jwt from "jsonwebtoken";
+import { env } from "$env/dynamic/private";
 
-export async function load({ }): Promise<{ items: Array<Machine> }> {
-    let machines: Array<Machine> = await db().select().from(machinesTable);
-
-    return { items: machines };
+export async function load({ }): Promise<{ item: Array<Machine> }> {
+    return { item: await getMachines() };
 }
 
 export const actions = {
-    default: async function ({ request }): Promise<{ items: Array<Machine> } | ActionFailure<{ errors: { name?: string, other?: string } }>> {
-        let payload = Object.fromEntries((await request.formData()).entries()) as { name: string };
-        let validator = make(payload, {
-            name: "required|string|min:1|max:32"
-        });
-        if (!validator.validate()) {
-            return fail(400, {
-                errors: {
-                    name: validator.errors().first("name") as string | undefined
-                }
-            });
+    default: async function ({ request }) {
+        let payload;
+        try {
+            payload = await createMachineSchema.validate(Object.fromEntries((await request.formData()).entries()));
+        } catch (err) {
+            if (err instanceof ValidationError)
+                return fail(400, {
+                    errors: {
+                        name: err.message
+                    }
+                });
+            throw error(500, (<Error>err));
         }
 
         try {
             const machine = await db().insert(machinesTable).values({ name: payload.name }).returning();
+            const token = jwt.sign({ machine }, env.JWT_SECRET_KEY, { expiresIn: "30d" });
 
             return {
-                items: machine
+                item: {
+                    machine,
+                    token
+                }
             };
-        } catch (error) {
-            if ((error as Error).name === "PostgresError") {
-                if ((error as PostgresError).constraint_name === "machines_name_unique") {
+        } catch (err) {
+            if ((err as Error).name === "PostgresError") {
+                if ((err as PostgresError).constraint_name === "machines_name_unique") {
                     return fail(400, {
                         errors: {
-                            name: "This name is already in use."
+                            name: (<string | undefined>"This name is already in use.")
                         }
                     });
                 }
             }
 
-            return fail(400, {
-                errors: {
-                    other: (error as Error).message as string | undefined
-                }
-            })
+            throw error(500, (<Error>err));
         }
     }
 }

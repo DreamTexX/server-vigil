@@ -1,29 +1,45 @@
 <script lang="ts">
-    import { DarkMode, NavBrand, NavHamburger, Navbar } from "flowbite-svelte";
     import Breadcrumbs from "./Breadcrumbs.svelte";
     import Logo from "$lib/assets/Logo.svelte";
+    import ThemeSwitch from "./ThemeSwitch.svelte";
 
-    export let fluid = true;
-    export let drawerHidden = false;
-    export let list = false;
+    export let drawerHidden: boolean;
 </script>
 
-<Navbar {fluid} class="text-black" color="default" let:NavContainer>
-    <NavContainer class="mb-px mt-px px-1" {fluid}>
-        <NavHamburger onClick={() => (drawerHidden = !drawerHidden)} class="m-0 me-3 md:block lg:hidden" />
-        <NavBrand href="/" class={list ? "w-40" : "lg:w-60"}>
-            <Logo class="me-2.5 h-8 sm:h-10 dark:text-white" />
-            <span
-                class="ml-px self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:text-2xl"
-            >
+<nav class="navbar sticky top-0 z-40 border-b border-base-300 bg-base-100">
+    <button
+        class="btn btn-ghost flex-none lg:hidden"
+        on:click={() => (drawerHidden = !drawerHidden)}
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="inline-block w-5 h-5"
+        >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    <div class="lg:w-64 flex-none px-4">
+        <div class="flex">
+            <Logo class="me-2.5 h-8 sm:h-10" />
+            <span class="ml-px self-center whitespace-nowrap text-xl font-semibold sm:text-2xl">
                 ServerVigil
             </span>
-        </NavBrand>
-        <div class="hidden lg:block lg:ps-3">
+        </div>
+    </div>
+    <div class="flex-1 px-4">
+        <div class="hidden lg:block">
             <Breadcrumbs />
         </div>
-        <div class="ms-auto flex items-center text-gray-500 dark:text-gray-400 sm:order-2">
-            <DarkMode />
-        </div>
-    </NavContainer>
-</Navbar>
+    </div>
+    <div class="flex-none">
+        <ThemeSwitch />
+    </div>
+</nav>
