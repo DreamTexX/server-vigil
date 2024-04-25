@@ -28,7 +28,7 @@
 
 <div
     class:hidden={!open}
-    class="fixed inset-0 z-40 bg-gray-900/50"
+    class="fixed inset-0 z-40 bg-black/50"
     on:click={closeDrawer}
     on:keydown={closeDrawer}
     role="presentation"

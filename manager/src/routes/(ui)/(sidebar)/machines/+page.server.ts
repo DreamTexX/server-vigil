@@ -28,12 +28,12 @@ export const actions = {
         }
 
         try {
-            const machine = await db().insert(machinesTable).values({ name: payload.name }).returning();
-            const token = jwt.sign({ machine }, env.JWT_SECRET_KEY, { expiresIn: "30d" });
+            const machines = await db().insert(machinesTable).values({ name: payload.name }).returning();
+            const token = jwt.sign({ machine: machines[0] }, env.JWT_SECRET_KEY, { expiresIn: "30d" });
 
             return {
                 item: {
-                    machine,
+                    machine: machines[0],
                     token
                 }
             };

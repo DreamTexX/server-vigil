@@ -1,9 +1,9 @@
 <script lang="ts">
     import { browser } from "$app/environment";
 
-    let checked: boolean = false;
+    let checked: boolean = true;
 
-    $: if (browser) document.querySelector("html")?.setAttribute("data-theme", checked ? "dim" : "emerald");
+    $: if (browser) document.querySelector("html")?.setAttribute("data-theme", checked ? "business" : "lofi");
 </script>
 
 <label class="btn btn-ghost swap swap-rotate">

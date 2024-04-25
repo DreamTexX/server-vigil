@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../app.pcss";
+    import "../../app.pcss";
 
     import { page } from "$app/stores";
 </script>

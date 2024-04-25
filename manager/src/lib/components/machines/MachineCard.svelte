@@ -5,15 +5,22 @@
     import { goto } from "$app/navigation";
 
     export let machine: Machine;
-    
+
     let measurement: Measurement | undefined;
     let now: Date = new Date();
-    let ticker = setInterval(() => (now = new Date()), 30000);
-    
-    onMount(() => {
-        // load latest measurement
-    });
+    let ticker = setInterval(async () => {
+        await fetchData();
+        now = new Date();
+    }, 30000);
 
+    async function fetchData() {
+        const measurements: Array<Measurement> = await (await fetch(`/api/v1/machines/${machine.id}/measurements`)).json();
+        if (measurements.length > 0) {
+            measurement = measurements[0];
+        }
+    }
+
+    onMount(fetchData);
     onDestroy(() => {
         clearInterval(ticker);
     });
@@ -27,8 +34,8 @@
                     {machine.name}
                 </h5>
             </a>
-            <details class="dropdown dropdown-end">
-                <summary class="btn btn-ghost btn-sm">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -45,16 +52,23 @@
                         <circle cx="12" cy="5" r="1"></circle>
                         <circle cx="12" cy="19" r="1"></circle>
                     </svg>
-                </summary>
-                <ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow">
+                </div>
+                <ul
+                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow"
+                >
                     <li>
                         <button>Edit</button>
                     </li>
                     <li>
-                        <button on:click={() => goto("/machines/" + machine.id, { state: { delete: true } })}>Delete</button>
+                        <button
+                            on:click={() =>
+                                goto("/machines/" + machine.id, { state: { delete: true } })}
+                        >
+                            Delete
+                        </button>
                     </li>
                 </ul>
-            </details>
+            </div>
         </div>
         <hr class="my-1" />
         <div class="leading-8">

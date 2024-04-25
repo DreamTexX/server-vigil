@@ -15,7 +15,7 @@ export const measurementsTable = pgTable("measurements", {
     hostname: varchar("hostname", { length: 128 }).notNull(),
     mem_total: integer("mem_total").notNull(),
     mem_available: integer("mem_available").notNull(),
-    machineId: uuid("machine_id").references(() => machinesTable.id),
+    machineId: uuid("machine_id").references(() => machinesTable.id, { onDelete: "cascade" }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

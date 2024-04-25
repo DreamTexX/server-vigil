@@ -1,5 +1,5 @@
 {
-  "id": "a0d8dc30-bb7c-4f09-9489-ba4c9a8b5a57",
+  "id": "42ad2344-e213-41a7-a01a-3de8f15c5c06",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -104,7 +104,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
