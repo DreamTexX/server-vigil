@@ -11,9 +11,9 @@
 
 <aside
     class:hidden={!open}
-    class="fixed inset-0 z-50 float-right ml-auto h-full max-w-screen-sm w-full overflow-y-auto bg-base-100"
+    class="fixed inset-0 z-50 float-right ml-auto h-full w-full max-w-screen-sm overflow-y-auto bg-base-100"
 >
-    <header class="flex gap-1 bg-base-200 px-8 py-4 items-center">
+    <header class="flex items-center gap-1 bg-base-200 px-8 py-4">
         <h5 class="w-full text-lg font-semibold">
             {title ?? ""}
         </h5>

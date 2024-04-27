@@ -1,13 +1,13 @@
 import { env } from "$env/dynamic/private";
-import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import r from "rethinkdb";
 
-let DB_INSTANCE: PostgresJsDatabase | undefined;
+let CACHED_CONNECTION: r.Connection | undefined = undefined;
 
-export function db() {
-    if (!DB_INSTANCE) {
-        DB_INSTANCE = drizzle(postgres(env.DATABASE_CONNECTION_URL))
+export async function connect(): Promise<r.Connection> {
+    if (CACHED_CONNECTION && CACHED_CONNECTION.open) {
+        return Promise.resolve(CACHED_CONNECTION);
     }
 
-    return DB_INSTANCE;
+    CACHED_CONNECTION = await r.connect(env.DATABASE_CONNECTION_URL);
+    return CACHED_CONNECTION;
 }

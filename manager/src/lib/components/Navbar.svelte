@@ -19,14 +19,14 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="inline-block w-5 h-5"
+            class="inline-block h-5 w-5"
         >
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
     </button>
-    <div class="lg:w-64 flex-none px-4">
+    <div class="flex-none px-4 lg:w-64">
         <div class="flex">
             <Logo class="me-2.5 h-8 sm:h-10" />
             <span class="ml-px self-center whitespace-nowrap text-xl font-semibold sm:text-2xl">

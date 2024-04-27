@@ -23,7 +23,7 @@
     }
 </script>
 
-<Drawer bind:open title="Enroll new Machine">
+<Drawer bind:open title="Add new Machine">
     {#if form?.item}
         <div class="grid grid-cols-1 gap-4">
             <!-- prettier-ignore -->
@@ -73,7 +73,7 @@
                     </div>
                 {/if}
             </label>
-            <button type="submit" class="btn btn-primary">Enroll</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
     {/if}
 </Drawer>

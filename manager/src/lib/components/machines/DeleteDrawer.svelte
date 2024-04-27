@@ -18,7 +18,8 @@
     >
         <p>
             This action will permanently delete this machine and all its measurements from this
-            application. <span class="font-bold">It will not delete the agent or server data</span>.
+            application. <span class="font-bold">It will not delete the agent or server data</span>
+            .
         </p>
         <p>
             To confirm and delete, please type <kbd class="kbd kbd-sm">{machine.name}</kbd>

@@ -3,14 +3,15 @@
 
     let checked: boolean = true;
 
-    $: if (browser) document.querySelector("html")?.setAttribute("data-theme", checked ? "business" : "lofi");
+    $: if (browser)
+        document.querySelector("html")?.setAttribute("data-theme", checked ? "business" : "lofi");
 </script>
 
 <label class="btn btn-ghost swap swap-rotate">
-    <input type="checkbox" class="theme-controller" value="dracula" bind:checked={checked} />
+    <input type="checkbox" class="theme-controller" value="dracula" bind:checked />
 
     <svg
-        class="swap-off inline-block w-5 h-5 fill-current"
+        class="swap-off inline-block h-5 w-5 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
     >
@@ -20,7 +21,7 @@
     </svg>
 
     <svg
-        class="swap-on inline-block w-5 h-5 fill-current"
+        class="swap-on inline-block h-5 w-5 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
     >

@@ -1,21 +1,32 @@
-import { type Machine, machinesTable } from "$lib/server/schema";
-import { db } from "$lib/server/db";
-import { eq } from "drizzle-orm";
+import { type Machine } from "$lib/server/schema";
+import { connect } from "$lib/server/db";
+import r from "rethinkdb";
 
 export async function getMachine(id: string): Promise<Machine | undefined> {
-    let machines: Array<Machine> = await db().select().from(machinesTable).where(eq(machinesTable.id, id));
-    if (machines.length <= 0) {
-        return undefined;
-    }
+    const results = await r
+        .db("server-vigil")
+        .table("machines")
+        .orderBy({ index: r.desc("createdAt") })
+        .limit(1)
+        .run(await connect());
 
-    return machines[0];
+    return results.next();
 }
 
 export async function getMachines(): Promise<Array<Machine>> {
-    let machines: Array<Machine> = await db().select().from(machinesTable);
-    return machines;
+    let results = await r
+        .db("server-vigil")
+        .table("machines")
+        .orderBy({ index: r.desc("createdAt") })
+        .run(await connect());
+    return results.toArray();
 }
 
 export async function deleteMachine(id: string): Promise<void> {
-    await db().delete(machinesTable).where(eq(machinesTable.id, id));
+    await r
+        .db("server-vigil")
+        .table("machines")
+        .filter(r.row("id").eq(id))
+        .delete()
+        .run(await connect());
 }

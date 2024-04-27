@@ -1,26 +1,20 @@
 <script lang="ts">
-    import { formatDistance, differenceInMinutes } from "date-fns";
-    import { onDestroy, onMount } from "svelte";
+    import { onDestroy } from "svelte";
     import type { Machine, Measurement } from "$lib/server/schema";
     import { goto } from "$app/navigation";
+    import LocalizedRelativeTime from "../intl/LocalizedRelativeTime.svelte";
 
     export let machine: Machine;
+    export let measurement: Measurement | undefined;
 
-    let measurement: Measurement | undefined;
     let now: Date = new Date();
     let ticker = setInterval(async () => {
-        await fetchData();
         now = new Date();
     }, 30000);
+    let differenceInMinutes = 0;
 
-    async function fetchData() {
-        const measurements: Array<Measurement> = await (await fetch(`/api/v1/machines/${machine.id}/measurements`)).json();
-        if (measurements.length > 0) {
-            measurement = measurements[0];
-        }
-    }
+    $: differenceInMinutes = Math.round((new Date().getTime() - (measurement?.createdAt?.getTime() ?? new Date().getTime())) / 1000 / 60)
 
-    onMount(fetchData);
     onDestroy(() => {
         clearInterval(ticker);
     });
@@ -53,9 +47,7 @@
                         <circle cx="12" cy="19" r="1"></circle>
                     </svg>
                 </div>
-                <ul
-                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow"
-                >
+                <ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow">
                     <li>
                         <button>Edit</button>
                     </li>
@@ -74,14 +66,16 @@
         <div class="leading-8">
             {#if measurement}
                 <div
-                    class="badge"
-                    class:badge-success={differenceInMinutes(now, measurement.createdAt) <= 5}
-                    class:badge-error={differenceInMinutes(now, measurement.createdAt) > 5}
+                    class="tooltip badge"
+                    class:badge-success={differenceInMinutes <= 5}
+                    class:badge-error={differenceInMinutes > 5}
+                    data-tip={measurement.createdAt.toLocaleString()}
                 >
-                    Last Ping: {formatDistance(measurement.createdAt, now, {
-                        includeSeconds: true
-                    })} ago
-                </div>
+                    Last Ping: <LocalizedRelativeTime
+                        date={measurement.createdAt}
+                        language="en-US"
+                    />
+                </div><br>
                 <div class="badge badge-ghost">
                     <span class="font-bold">Hostname:</span>
                     &nbsp;{measurement.hostname}

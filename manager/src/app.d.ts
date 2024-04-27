@@ -6,7 +6,7 @@ declare global {
         // interface Locals {}
         // interface PageData {}
         interface PageState {
-            delete?: boolean
+            delete?: boolean;
         }
         // interface Platform {}
     }

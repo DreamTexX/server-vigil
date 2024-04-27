@@ -5,7 +5,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize)]
 struct Measurement<'a> {
     hostname: &'a str,
+    #[serde(rename = "memTotal")]
     mem_total: usize,
+    #[serde(rename = "memAvailable")]
     mem_available: usize,
 }
 
