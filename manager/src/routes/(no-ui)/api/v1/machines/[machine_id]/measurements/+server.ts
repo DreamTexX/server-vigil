@@ -3,7 +3,7 @@ import { createMeasurementSchema, type CreateMeasurementDto } from "$lib/server/
 import { getMeasurementsForMachineById } from "$lib/server/services/measurements";
 import { error, json } from "@sveltejs/kit";
 import { connect } from "$lib/server/db";
-import r from "rethinkdb";
+import { r } from "rethinkdb-ts";
 import { env } from "$env/dynamic/private";
 
 export async function GET({ params }) {

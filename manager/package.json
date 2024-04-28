@@ -16,7 +16,6 @@
         "@sveltejs/kit": "^2.0.0",
         "@sveltejs/vite-plugin-svelte": "^3.0.0",
         "@types/jsonwebtoken": "^9.0.6",
-        "@types/rethinkdb": "^2.3.21",
         "autoprefixer": "^10.4.16",
         "daisyui": "^4.10.2",
         "drizzle-kit": "^0.20.17",
@@ -36,7 +35,7 @@
     "type": "module",
     "dependencies": {
         "jsonwebtoken": "^9.0.2",
-        "rethinkdb": "^2.4.2",
+        "rethinkdb-ts": "^2.6.0",
         "yup": "^1.4.0"
     }
 }

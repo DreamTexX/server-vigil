@@ -1,31 +1,42 @@
 import { subscribeMeasurements } from "$lib/server/services/measurements";
+import type { RethinkDBError } from "rethinkdb-ts";
 
 export async function GET({}) {
-    const cursor = await subscribeMeasurements();
-
-    return new Response(
-        new ReadableStream({
+    try {
+        const cursor = await subscribeMeasurements();
+        let isOpen = true;
+        const stream = new ReadableStream({
             start: (controller) => {
-                cursor.each((err: Error, row: any) => {
-                    if (err) {
-                        controller.error(err);
-                    } else {
-                        if (row.new_val) {
-                            controller.enqueue(`data: ${JSON.stringify(row.new_val)}\n\n`);
+                cursor.each(
+                    (err: RethinkDBError | undefined, row: any) => {
+                        if (!isOpen) return;
+                        if (err) {
+                            controller.error(err);
+                        } else {
+                            if (row.new_val) {
+                                controller.enqueue(`data: ${JSON.stringify(row.new_val)}\n\n`);
+                            }
                         }
+                    },
+                    () => {
+                        if (isOpen) controller.close();
                     }
-                }, controller.close);
+                );
             },
-            cancel: () => {
-                cursor.close();
+            cancel: async () => {
+                isOpen = false;
+                await cursor.close();
             }
-        }),
-        {
+        });
+
+        return new Response(stream, {
             headers: {
                 "Content-Type": "text/event-stream",
                 Connection: "keep-alive",
                 "Cache-Control": "no-cache"
             }
-        }
-    );
+        });
+    } catch (err) {
+        console.error(err);
+    }
 }

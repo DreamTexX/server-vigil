@@ -7,7 +7,7 @@ import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
 import { ValidationError } from "yup";
 import jwt from "jsonwebtoken";
-import r from "rethinkdb";
+import { r } from "rethinkdb-ts";
 
 export async function load({}): Promise<{
     item: { machines: Array<Machine>; measurements: Array<Measurement> };
@@ -44,12 +44,12 @@ export const actions = {
             .run(await connect());
 
         if (results.inserted) {
-            const data = { ...insertedData, id: results.generated_keys[0] };
+            const data = { ...insertedData, id: results.generated_keys![0] };
             const token = jwt.sign({ machine: data }, env.JWT_SECRET_KEY, { expiresIn: "30d" });
 
             return {
                 item: {
-                    machine: { ...data, id: results.generated_keys[0] },
+                    machine: { ...data, id: results.generated_keys![0] },
                     token
                 }
             };

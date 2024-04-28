@@ -1,14 +1,14 @@
 import { env } from "$env/dynamic/private";
-import r from "rethinkdb";
+import { r, type Connection } from "rethinkdb-ts";
 
-let CACHED_CONNECTION: r.Connection | undefined = undefined;
+let CACHED_CONNECTION: Connection | undefined = undefined;
 
-export async function connect(): Promise<r.Connection> {
+export async function connect(): Promise<Connection> {
     if (CACHED_CONNECTION && CACHED_CONNECTION.open) {
         return Promise.resolve(CACHED_CONNECTION);
     }
 
-    CACHED_CONNECTION = await r.connect(env.DATABASE_SERVER);
+    CACHED_CONNECTION = await r.connect({ server: { host: env.DATABASE_SERVER } });
     return CACHED_CONNECTION;
 }
 

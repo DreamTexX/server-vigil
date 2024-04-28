@@ -13,7 +13,11 @@
     }, 30000);
     let differenceInMinutes = 0;
 
-    $: differenceInMinutes = Math.round((new Date().getTime() - (measurement?.createdAt?.getTime() ?? new Date().getTime())) / 1000 / 60)
+    $: differenceInMinutes = Math.round(
+        (new Date().getTime() - (measurement?.createdAt?.getTime() ?? new Date().getTime())) /
+            1000 /
+            60
+    );
 
     onDestroy(() => {
         clearInterval(ticker);
@@ -66,16 +70,16 @@
         <div class="leading-8">
             {#if measurement}
                 <div
-                    class="tooltip badge"
+                    class="badge tooltip"
                     class:badge-success={differenceInMinutes <= 5}
                     class:badge-error={differenceInMinutes > 5}
                     data-tip={measurement.createdAt.toLocaleString()}
                 >
-                    Last Ping: <LocalizedRelativeTime
-                        date={measurement.createdAt}
-                        language="en-US"
-                    />
-                </div><br>
+                    Last Ping: {#key measurement.id}
+                        <LocalizedRelativeTime date={measurement.createdAt} language="en-US" />
+                    {/key}
+                </div>
+                <br />
                 <div class="badge badge-ghost">
                     <span class="font-bold">Hostname:</span>
                     &nbsp;{measurement.hostname}

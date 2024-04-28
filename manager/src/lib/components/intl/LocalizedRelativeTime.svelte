@@ -1,7 +1,7 @@
 <script lang="ts">
     import { browser } from "$app/environment";
     import { toRelativeLocalDateWithUnit } from "./relative-time";
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
 
     export let date: Date;
     export let language: string;
@@ -10,6 +10,7 @@
     let update: NodeJS.Timeout;
 
     function runUpdate() {
+        clearInterval(update);
         update = setInterval(() => {
             let intermediateValues = toRelativeLocalDateWithUnit(date, language);
             value = intermediateValues.value;
@@ -22,6 +23,7 @@
     }
 
     onMount(runUpdate);
+    onDestroy(() => clearInterval(update));
 </script>
 
 {#if !browser}

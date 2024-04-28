@@ -1,6 +1,6 @@
 import { type Machine } from "$lib/server/schema";
 import { connect } from "$lib/server/db";
-import r from "rethinkdb";
+import { r } from "rethinkdb-ts";
 import { env } from "$env/dynamic/private";
 
 export async function getMachine(id: string): Promise<Machine | undefined> {
@@ -11,7 +11,7 @@ export async function getMachine(id: string): Promise<Machine | undefined> {
         .limit(1)
         .run(await connect());
 
-    return results.next();
+    return results[0];
 }
 
 export async function getMachines(): Promise<Array<Machine>> {
@@ -20,7 +20,7 @@ export async function getMachines(): Promise<Array<Machine>> {
         .table("machines")
         .orderBy({ index: r.desc("createdAt") })
         .run(await connect());
-    return results.toArray();
+    return results;
 }
 
 export async function deleteMachine(id: string): Promise<void> {
