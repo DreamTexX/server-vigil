@@ -20,6 +20,9 @@
     }
 
     onMount(() => {
+        data.item.measurements.forEach((measurement) => {
+            measurements[measurement.machineId] = measurement;
+        });
         eventSource = new EventSource("/api/v1/measurements/subscribe");
         eventSource.onmessage = (event: MessageEvent) => {
             const data: Measurement = JSON.parse(event.data);
@@ -41,9 +44,9 @@
     <button class="btn btn-primary" on:click={openCreateDialog}>Add new Machine</button>
 </div>
 
-{#if data.item.length > 0}
+{#if data.item.machines.length > 0}
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {#each data.item as machine (machine.id)}
+        {#each data.item.machines as machine (machine.id)}
             <MachineCard {machine} measurement={measurements[machine.id]} />
         {/each}
         <div></div>

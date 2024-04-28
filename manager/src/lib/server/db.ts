@@ -8,6 +8,13 @@ export async function connect(): Promise<r.Connection> {
         return Promise.resolve(CACHED_CONNECTION);
     }
 
-    CACHED_CONNECTION = await r.connect(env.DATABASE_CONNECTION_URL);
+    CACHED_CONNECTION = await r.connect(env.DATABASE_SERVER);
     return CACHED_CONNECTION;
+}
+
+export async function migrate() {
+    await r.db(env.DATABASE_NAME).tableCreate("machines").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
+    await r.db(env.DATABASE_NAME).tableCreate("measurements").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
+    await r.db(env.DATABASE_NAME).table("machines").indexCreate("createdAt").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
+    await r.db(env.DATABASE_NAME).table("measurements").indexCreate("createdAt").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
 }

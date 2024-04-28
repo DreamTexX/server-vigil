@@ -4,6 +4,7 @@ import { getMeasurementsForMachineById } from "$lib/server/services/measurements
 import { error, json } from "@sveltejs/kit";
 import { connect } from "$lib/server/db";
 import r from "rethinkdb";
+import { env } from "$env/dynamic/private";
 
 export async function GET({ params }) {
     return json(await getMeasurementsForMachineById(params.machine_id));
@@ -22,7 +23,7 @@ export async function POST({ request, params }) {
     };
 
     let results = await r
-        .db("server-vigil")
+        .db(env.DATABASE_NAME)
         .table("measurements")
         .insert(data)
         .run(await connect());

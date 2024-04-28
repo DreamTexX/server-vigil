@@ -3,6 +3,7 @@
     import { page } from "$app/stores";
     import Home from "$lib/assets/icons/Home.svelte";
     import Server from "$lib/assets/icons/Server.svelte";
+    import Sliders from "$lib/assets/icons/Sliders.svelte";
 
     export let drawerHidden: boolean = true;
 
@@ -19,7 +20,8 @@
 
     let items = [
         { name: "Dashboard", href: "/", icon: Home },
-        { name: "Machines", href: "/machines", icon: Server }
+        { name: "Machines", href: "/machines", icon: Server },
+        { name: "Settings", href: "/settings", icon: Sliders },
     ];
 </script>
 

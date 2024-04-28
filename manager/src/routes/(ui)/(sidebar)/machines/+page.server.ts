@@ -1,6 +1,7 @@
+import { batchGetLatestMeasurementForMachinesById } from "$lib/server/services/measurements.js";
+import { type Measurement, type Machine } from "$lib/server/schema";
 import { getMachines } from "$lib/server/services/machines";
 import { createMachineSchema } from "$lib/server/validator";
-import type { Machine } from "$lib/server/schema";
 import { error, fail } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
@@ -8,8 +9,14 @@ import { ValidationError } from "yup";
 import jwt from "jsonwebtoken";
 import r from "rethinkdb";
 
-export async function load({}): Promise<{ item: Array<Machine> }> {
-    return { item: await getMachines() };
+export async function load({}): Promise<{
+    item: { machines: Array<Machine>; measurements: Array<Measurement> };
+}> {
+    const machines: Array<Machine> = await getMachines();
+    const measurements: Array<Measurement> = await batchGetLatestMeasurementForMachinesById(
+        machines.map((machine) => machine.id)
+    );
+    return { item: { machines, measurements } };
 }
 
 export const actions = {
@@ -31,7 +38,7 @@ export const actions = {
 
         const insertedData = { name: payload.name, createdAt: new Date(), updatedAt: new Date() };
         const results = await r
-            .db("server-vigil")
+            .db(env.DATABASE_NAME)
             .table("machines")
             .insert(insertedData)
             .run(await connect());
