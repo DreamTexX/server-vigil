@@ -1,5 +1,5 @@
 {
-	"name": "Server Vigil Generic",
+	"name": "Server Vigil",
 	"dockerComposeFile": "./docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
