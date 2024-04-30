@@ -1,25 +1,47 @@
+import { r, type RCursor, type RDatum } from "rethinkdb-ts";
 import type { Measurement } from "$lib/server/schema";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
-import { r, type RCursor, type RDatum } from "rethinkdb-ts";
 
 export async function getMeasurementsForMachineById(
-    machineId: string
+    machineId: string,
+    order: "asc" | "desc" = "desc",
+    limit?: number
 ): Promise<Array<Measurement>> {
-    const results = await r
+    let query = r
         .db(env.DATABASE_NAME)
         .table("measurements")
-        .orderBy({ index: r.desc("createdAt") })
-        .filter(r.row("machineId").eq(machineId))
-        .run(await connect());
+        .orderBy({ index: order === "asc" ? r.asc("createdAt") : r.desc("createdAt") })
+        .filter(r.row("machineId").eq(machineId));
+    if (limit !== undefined) {
+        query = query.limit(limit);
+    }
 
-    return results;
+    return query.run(await connect());
 }
 
 export async function subscribeMeasurements(): Promise<RCursor> {
     const cursor = await r
         .db(env.DATABASE_NAME)
         .table("measurements")
+        .changes({
+            changefeedQueueSize: 1,
+            includeInitial: false,
+            includeOffsets: false,
+            includeStates: false,
+            includeTypes: false,
+            squash: false
+        })
+        .run(await connect());
+
+    return cursor;
+}
+
+export async function subscribeMeasurementByMachineId(machineId: string): Promise<RCursor> {
+    const cursor = await r
+        .db(env.DATABASE_NAME)
+        .table("measurements")
+        .filter(r.row("machineId").eq(machineId))
         .changes({
             changefeedQueueSize: 1,
             includeInitial: false,

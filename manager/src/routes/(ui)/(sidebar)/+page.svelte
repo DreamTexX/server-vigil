@@ -1,5 +1,9 @@
 <script lang="ts">
-    import { BREADCRUMBS_STORE } from "$lib/stores/breadcrumbs";
+    import { getContext } from "svelte";
+    import type { Writable } from "svelte/store";
 
-    BREADCRUMBS_STORE.set([{ label: "Home", href: "/" }, { label: "Dashboard" }]);
+    getContext<Writable<Breadcrumbs>>("breadcrumbs").set([
+        { label: "Home", href: "/" },
+        { label: "Dashboard" }
+    ]);
 </script>

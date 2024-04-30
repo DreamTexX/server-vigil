@@ -1,10 +1,13 @@
 <script lang="ts">
-    import { BREADCRUMBS_STORE } from "$lib/stores/breadcrumbs";
+    import { getContext } from "svelte";
+    import type { Writable } from "svelte/store";
+
+    const breadcrumbs = getContext<Writable<Breadcrumbs>>("breadcrumbs");
 </script>
 
 <div class="breadcrumbs text-sm">
     <ul>
-        {#each $BREADCRUMBS_STORE as { href, label }}
+        {#each $breadcrumbs as { href, label }}
             <li>
                 {#if href}
                     <a {href}>{label}</a>

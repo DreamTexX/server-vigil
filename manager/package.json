@@ -17,6 +17,7 @@
         "@sveltejs/vite-plugin-svelte": "^3.0.0",
         "@types/jsonwebtoken": "^9.0.6",
         "autoprefixer": "^10.4.16",
+        "chart.js": "^4.4.2",
         "daisyui": "^4.10.2",
         "drizzle-kit": "^0.20.17",
         "postcss": "^8.4.32",

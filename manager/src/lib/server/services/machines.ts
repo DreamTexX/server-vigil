@@ -8,6 +8,7 @@ export async function getMachine(id: string): Promise<Machine | undefined> {
         .db(env.DATABASE_NAME)
         .table("machines")
         .orderBy({ index: r.desc("createdAt") })
+        .filter(r.row("id").eq(id))
         .limit(1)
         .run(await connect());
 

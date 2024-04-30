@@ -7,5 +7,8 @@ export default defineConfig({
         watch: {
             usePolling: true
         }
+    },
+    ssr: {
+        noExternal: ["chart.js"]
     }
 });

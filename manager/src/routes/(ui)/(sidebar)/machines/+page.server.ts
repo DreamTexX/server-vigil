@@ -1,4 +1,4 @@
-import { batchGetLatestMeasurementForMachinesById } from "$lib/server/services/measurements.js";
+import { batchGetLatestMeasurementForMachinesById } from "$lib/server/services/measurements";
 import { type Measurement, type Machine } from "$lib/server/schema";
 import { getMachines } from "$lib/server/services/machines";
 import { createMachineSchema } from "$lib/server/validator";

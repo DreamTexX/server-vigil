@@ -2,11 +2,11 @@
     import MachineCard from "$lib/components/machines/MachineCard.svelte";
     import NoContent from "$lib/components/NoContent.svelte";
     import CreateDrawer from "$lib/components/machines/CreateDrawer.svelte";
-    import { BREADCRUMBS_STORE } from "$lib/stores/breadcrumbs";
-    import { onMount, onDestroy } from "svelte";
-    import type { Measurement } from "$lib/server/schema.js";
+    import { onMount, onDestroy, getContext } from "svelte";
+    import type { Measurement } from "$lib/server/schema";
+    import type { Writable } from "svelte/store";
 
-    BREADCRUMBS_STORE.set([{ label: "Home", href: "/" }, { label: "Machines" }]);
+    getContext<Writable<Breadcrumbs>>("breadcrumbs").set([{ label: "Home", href: "/" }, { label: "Machines" }]);
 
     export let data;
     export let form;

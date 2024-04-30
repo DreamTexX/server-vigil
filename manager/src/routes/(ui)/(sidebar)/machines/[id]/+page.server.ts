@@ -1,15 +1,21 @@
 import { deleteMachine, getMachine } from "$lib/server/services/machines";
 import { error, fail, redirect } from "@sveltejs/kit";
-import { type Machine } from "$lib/server/schema.js";
+import { type Machine, type Measurement } from "$lib/server/schema";
+import { getMeasurementsForMachineById } from "$lib/server/services/measurements";
 
-export async function load({ params }): Promise<{ item: Machine }> {
-    let machine = await getMachine(params.id);
+export async function load({ params }): Promise<{ item: { machine: Machine, measurements: Array<Measurement> }}> {
+    const machine = await getMachine(params.id);
     if (!machine) {
         throw error(404);
     }
 
+    const measurements = await getMeasurementsForMachineById(machine.id, "desc", 10);
+
     return {
-        item: machine
+        item: {
+            machine,
+            measurements: measurements.reverse()
+        }
     };
 }
 
