@@ -30,7 +30,7 @@ export const actions = {
             if (err instanceof ValidationError)
                 return fail(400, {
                     errors: {
-                        name: err.message
+                        name: (<string|undefined>err.message)
                     }
                 });
             throw error(500, <Error>err);

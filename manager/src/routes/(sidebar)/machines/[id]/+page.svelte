@@ -1,11 +1,10 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import DeleteDrawer from "$lib/components/machines/DeleteDrawer.svelte";
-    import { getContext, onDestroy, onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import Chart from "chart.js/auto";
-    import type { Writable } from "svelte/store";
-    import { toRelativeLocalDate } from "$lib/components/intl/relative-time";
     import type { Measurement } from "$lib/server/schema";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store.js";
 
     export let form;
     export let data;
@@ -17,7 +16,7 @@
     let eventSource: EventSource | undefined;
     let chart: Chart | undefined;
 
-    getContext<Writable<Breadcrumbs>>("breadcrumbs").set([
+    getBreadcrumbsStore().set([
         { label: "Home", href: "/" },
         { label: "Machines", href: "/machines" },
         { label: machine.name }

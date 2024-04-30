@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { getContext } from "svelte";
-    import type { Writable } from "svelte/store";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
 
-    const breadcrumbs = getContext<Writable<Breadcrumbs>>("breadcrumbs");
+    const breadcrumbs = getBreadcrumbsStore();
 </script>
 
 <div class="breadcrumbs text-sm">

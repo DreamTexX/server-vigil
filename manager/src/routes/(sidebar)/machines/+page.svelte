@@ -4,9 +4,9 @@
     import CreateDrawer from "$lib/components/machines/CreateDrawer.svelte";
     import { onMount, onDestroy, getContext } from "svelte";
     import type { Measurement } from "$lib/server/schema";
-    import type { Writable } from "svelte/store";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store.js";
 
-    getContext<Writable<Breadcrumbs>>("breadcrumbs").set([{ label: "Home", href: "/" }, { label: "Machines" }]);
+    getBreadcrumbsStore().set([{ label: "Home", href: "/" }, { label: "Machines" }]);
 
     export let data;
     export let form;

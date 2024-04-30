@@ -10,8 +10,6 @@ declare global {
         }
         // interface Platform {}
     }
-
-    type Breadcrumbs = Array<{ label: string; href?: string }>;
 }
 
 export {};

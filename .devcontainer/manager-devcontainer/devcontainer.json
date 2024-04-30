@@ -22,6 +22,11 @@
 			"source": "${devcontainerId}-node-modules",
 			"target": "${containerWorkspaceFolder}/node_modules",
 			"type": "volume"
+		},
+		{
+			"source": "${devcontainerId}-svelte-kit",
+			"target": "${containerWorkspaceFolder}/.svelte-kit",
+			"type": "volume"
 		}
 	]
 }
