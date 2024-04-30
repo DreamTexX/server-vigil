@@ -1,16 +1,49 @@
 {
 	"name": "Server Vigil Generic",
 	"dockerComposeFile": "./docker-compose.yml",
-	"service": "noop",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"forwardPorts": [5173],
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"streetsidesoftware.code-spell-checker",
-				"streetsidesoftware.code-spell-checker-german"
+				"streetsidesoftware.code-spell-checker-german",
+				"svelte.svelte-vscode",
+				"bradlc.vscode-tailwindcss",
+				"csstools.postcss",
+				"esbenp.prettier-vscode"
 			]
 		}
 	},
 	"remoteUser": "root",
-	"shutdownAction": "none"
+	"mounts": [
+		{
+			"source": "${devcontainerId}-node-modules",
+			"target": "${containerWorkspaceFolder}/manager/node_modules",
+			"type": "volume"
+		},
+		{
+			"source": "${devcontainerId}-svelte-kit",
+			"target": "${containerWorkspaceFolder}/manager/.svelte-kit",
+			"type": "volume"
+		},
+		{
+			"source": "${devcontainerId}-cargo-cache",
+			"target": "/usr/local/cargo",
+			"type": "volume"
+		},
+		{
+			"source": "${devcontainerId}-target",
+			"target": "${containerWorkspaceFolder}/agent/target",
+			"type": "volume"
+		}
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/node": {
+			"nodeGypDependencies": true,
+			"nvmVersion": "latest",
+			"version": "lts"
+		}
+	}
 }
