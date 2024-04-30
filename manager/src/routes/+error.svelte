@@ -4,18 +4,18 @@
     import { page } from "$app/stores";
 </script>
 
-<main class="bg-gray-50 dark:bg-gray-900">
+<main>
     <div
-        class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 md:h-screen dark:bg-gray-900"
+        class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 md:h-screen"
     >
         <div class="text-center xl:max-w-4xl">
             <h1
-                class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white"
+                class="mb-3 text-2xl font-bold leading-tight sm:text-4xl lg:text-5xl"
             >
                 {$page.status}
             </h1>
             <p
-                class="mb-5 text-center text-base font-normal text-gray-500 md:text-lg dark:text-gray-400"
+                class="mb-5 text-center text-base font-normal md:text-lg"
             >
                 Oops! Looks like you followed a bad link. If you think this is a problem with us,
                 please tell us.
