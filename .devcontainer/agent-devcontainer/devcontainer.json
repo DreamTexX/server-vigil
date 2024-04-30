@@ -7,7 +7,7 @@
 		"vscode": {
 			"extensions": [
 				"streetsidesoftware.code-spell-checker",
-				"streetsidesoftware.code-spell-checker-german",
+				"streetsidesoftware.code-spell-checker-german"
 			]
 		}
 	},
@@ -23,5 +23,6 @@
 			"target": "${containerWorkspaceFolder}/target",
 			"type": "volume"
 		}
-	]
+	],
+	"shutdownAction": "none"
 }

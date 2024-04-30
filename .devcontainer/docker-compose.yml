@@ -2,6 +2,11 @@ version: '3.8'
 volumes:
   rethinkdb-data:
 services:
+  noop:
+    image: mcr.microsoft.com/devcontainers/base:alpine-3.19
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
   agent:
     build:
       context: .

@@ -28,5 +28,6 @@
 			"target": "${containerWorkspaceFolder}/.svelte-kit",
 			"type": "volume"
 		}
-	]
+	],
+	"shutdownAction": "none"
 }
