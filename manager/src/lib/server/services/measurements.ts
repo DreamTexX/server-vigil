@@ -1,4 +1,4 @@
-import { r, type RCursor, type RDatum } from "rethinkdb-ts";
+import { r, type Changes, type GroupResults, type RCursor, type RDatum } from "rethinkdb-ts";
 import type { Measurement } from "$lib/server/schema";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
@@ -20,7 +20,7 @@ export async function getMeasurementsForMachineById(
     return query.run(await connect());
 }
 
-export async function subscribeMeasurements(): Promise<RCursor> {
+export async function subscribeMeasurements(): Promise<RCursor<Changes<Measurement>>> {
     const cursor = await r
         .db(env.DATABASE_NAME)
         .table("measurements")
@@ -37,7 +37,7 @@ export async function subscribeMeasurements(): Promise<RCursor> {
     return cursor;
 }
 
-export async function subscribeMeasurementByMachineId(machineId: string): Promise<RCursor> {
+export async function subscribeMeasurementByMachineId(machineId: string): Promise<RCursor<Changes<Measurement>>> {
     const cursor = await r
         .db(env.DATABASE_NAME)
         .table("measurements")
@@ -58,7 +58,7 @@ export async function subscribeMeasurementByMachineId(machineId: string): Promis
 export async function batchGetLatestMeasurementForMachinesById(
     ids: Array<string>
 ): Promise<Array<Measurement>> {
-    const cursor = await r
+    const cursor: Array<GroupResults<string, Array<Measurement>>> = await r
         .db(env.DATABASE_NAME)
         .table("measurements")
         .filter((rec: RDatum<Measurement>) => {
@@ -69,5 +69,5 @@ export async function batchGetLatestMeasurementForMachinesById(
         .limit(1)
         .run(await connect());
 
-    return cursor.map((rec: any) => rec.reduction[0]);
+    return cursor.map((rec) => rec.reduction[0]);
 }

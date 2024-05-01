@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onDestroy } from "svelte";
     import type { Machine, Measurement } from "$lib/server/schema";
     import { goto } from "$app/navigation";
     import LocalizedRelativeTime from "../intl/LocalizedRelativeTime.svelte";
@@ -7,10 +6,6 @@
     export let machine: Machine;
     export let measurement: Measurement | undefined;
 
-    let now: Date = new Date();
-    let ticker = setInterval(async () => {
-        now = new Date();
-    }, 30000);
     let differenceInMinutes = 0;
 
     $: differenceInMinutes = Math.round(
@@ -18,10 +13,6 @@
             1000 /
             60
     );
-
-    onDestroy(() => {
-        clearInterval(ticker);
-    });
 </script>
 
 <div class="card bg-base-100 shadow-xl">

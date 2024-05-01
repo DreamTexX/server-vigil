@@ -1,5 +1,5 @@
-import { getContext, hasContext, setContext } from "svelte";
 import { type Readable, type Writable, readable, writable } from "svelte/store";
+import { getContext, hasContext, setContext } from "svelte";
 
 export function useContext<R, V>(key: string, storeFn: (value: V) => R, value: V): R {
     if (!hasContext(key)) {

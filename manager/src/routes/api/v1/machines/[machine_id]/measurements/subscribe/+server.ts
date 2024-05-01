@@ -1,5 +1,6 @@
+import type { Measurement } from "$lib/server/schema.js";
 import { subscribeMeasurementByMachineId } from "$lib/server/services/measurements";
-import type { RethinkDBError } from "rethinkdb-ts";
+import type { Changes, RethinkDBError } from "rethinkdb-ts";
 
 export async function GET({ params }) {
     try {
@@ -8,7 +9,7 @@ export async function GET({ params }) {
         const stream = new ReadableStream({
             start: (controller) => {
                 cursor.each(
-                    (err: RethinkDBError | undefined, row: any) => {
+                    (err: RethinkDBError | undefined, row: Changes<Measurement>) => {
                         if (!isOpen) return;
                         if (err) {
                             controller.error(err);

@@ -2,9 +2,9 @@
     import MachineCard from "$lib/components/machines/MachineCard.svelte";
     import NoContent from "$lib/components/NoContent.svelte";
     import CreateDrawer from "$lib/components/machines/CreateDrawer.svelte";
-    import { onMount, onDestroy, getContext } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import type { Measurement } from "$lib/server/schema";
-    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store.js";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
 
     getBreadcrumbsStore().set([{ label: "Home", href: "/" }, { label: "Machines" }]);
 

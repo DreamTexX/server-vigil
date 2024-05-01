@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
 import { r, type Connection } from "rethinkdb-ts";
+import { env } from "$env/dynamic/private";
 
 let CACHED_CONNECTION: Connection | undefined = undefined;
 
@@ -13,8 +13,26 @@ export async function connect(): Promise<Connection> {
 }
 
 export async function migrate() {
-    await r.db(env.DATABASE_NAME).tableCreate("machines").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
-    await r.db(env.DATABASE_NAME).tableCreate("measurements").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
-    await r.db(env.DATABASE_NAME).table("machines").indexCreate("createdAt").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
-    await r.db(env.DATABASE_NAME).table("measurements").indexCreate("createdAt").run(await connect()).catch((err) => console.warn("error ignored:", err.message));
+    await r
+        .db(env.DATABASE_NAME)
+        .tableCreate("machines")
+        .run(await connect())
+        .catch((err) => console.warn("error ignored:", err.message));
+    await r
+        .db(env.DATABASE_NAME)
+        .tableCreate("measurements")
+        .run(await connect())
+        .catch((err) => console.warn("error ignored:", err.message));
+    await r
+        .db(env.DATABASE_NAME)
+        .table("machines")
+        .indexCreate("createdAt")
+        .run(await connect())
+        .catch((err) => console.warn("error ignored:", err.message));
+    await r
+        .db(env.DATABASE_NAME)
+        .table("measurements")
+        .indexCreate("createdAt")
+        .run(await connect())
+        .catch((err) => console.warn("error ignored:", err.message));
 }

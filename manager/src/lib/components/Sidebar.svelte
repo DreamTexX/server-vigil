@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { afterNavigate } from "$app/navigation";
     import { page } from "$app/stores";
     import Home from "$lib/assets/icons/Home.svelte";
     import Server from "$lib/assets/icons/Server.svelte";
@@ -12,16 +11,11 @@
     };
 
     $: mainSidebarUrl = $page.url.pathname;
-    let activeMainSidebar: string;
-
-    afterNavigate((navigation) => {
-        activeMainSidebar = navigation.to?.url.pathname ?? "/";
-    });
 
     let items = [
         { name: "Dashboard", href: "/", icon: Home },
         { name: "Machines", href: "/machines", icon: Server },
-        { name: "Settings", href: "/settings", icon: Sliders },
+        { name: "Settings", href: "/settings", icon: Sliders }
     ];
 </script>
 

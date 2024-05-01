@@ -1,14 +1,15 @@
 import { subscribeMeasurements } from "$lib/server/services/measurements";
-import type { RethinkDBError } from "rethinkdb-ts";
+import type { Changes, RethinkDBError } from "rethinkdb-ts";
+import type { Measurement } from "$lib/server/schema";
 
-export async function GET({}) {
+export async function GET() {
     try {
         const cursor = await subscribeMeasurements();
         let isOpen = true;
         const stream = new ReadableStream({
             start: (controller) => {
                 cursor.each(
-                    (err: RethinkDBError | undefined, row: any) => {
+                    (err: RethinkDBError | undefined, row: Changes<Measurement>) => {
                         if (!isOpen) return;
                         if (err) {
                             controller.error(err);

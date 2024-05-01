@@ -4,7 +4,7 @@
     import { onDestroy, onMount } from "svelte";
     import Chart from "chart.js/auto";
     import type { Measurement } from "$lib/server/schema";
-    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store.js";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
 
     export let form;
     export let data;
@@ -27,7 +27,7 @@
         eventSource.onmessage = (event: MessageEvent) => {
             const measurement: Measurement = JSON.parse(event.data);
             if (chart) {
-                chart.data.labels?.shift()
+                chart.data.labels?.shift();
                 chart.data.labels?.push(new Date(measurement.createdAt).toLocaleTimeString());
                 chart.data.datasets.forEach((dataset) => dataset.data.shift());
                 chart.data.datasets[0].data.push(measurement.memTotal - measurement.memAvailable);
@@ -68,9 +68,9 @@
                         y: {
                             min: 0,
                             ticks: {
-                                callback: (tickValue, index, ticks) => {
-                                    return Math.round(<number>tickValue / 1024 / 1024) + " GB"
-                                },
+                                callback: (tickValue) => {
+                                    return Math.round(<number>tickValue / 1024 / 1024) + " GB";
+                                }
                             }
                         }
                     }

@@ -1,7 +1,7 @@
+import type { AnyObject, ObjectSchema } from "yup";
 import type { JwtPayload } from "jsonwebtoken";
 import { env } from "$env/dynamic/private";
 import type { Machine } from "./schema";
-import type { ObjectSchema } from "yup";
 import { error } from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 
@@ -11,7 +11,7 @@ export function requireMachineToken(request: Request, machineId: string): Machin
         throw error(401, { message: "unauthorized" });
     }
 
-    let [type, token] = authorizationHeader.split(" ");
+    const [type, token] = authorizationHeader.split(" ");
     if (type !== "Bearer") {
         throw error(401, { message: "unauthorized" });
     }
@@ -32,7 +32,7 @@ export function requireMachineToken(request: Request, machineId: string): Machin
 
 export async function extractAndValidateJsonPayload<T>(
     request: Request,
-    schema: ObjectSchema<any>
+    schema: ObjectSchema<AnyObject>
 ): Promise<T> {
     try {
         return (await schema.validate(await request.json())) as T;

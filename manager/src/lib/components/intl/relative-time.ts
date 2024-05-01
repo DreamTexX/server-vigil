@@ -11,7 +11,7 @@ export function toRelativeLocalDateWithUnit(
     date: Date,
     language: string
 ): { value: string; unit: Intl.RelativeTimeFormatUnit; unitValue: number } {
-    let formatter = new Intl.RelativeTimeFormat(language, { numeric: "auto" });
+    const formatter = new Intl.RelativeTimeFormat(language, { numeric: "auto" });
     const elapsed = date.getTime() - new Date().getTime();
     for (const [unit, value] of units) {
         if (Math.abs(elapsed) > value) {

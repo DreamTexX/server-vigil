@@ -6,8 +6,8 @@ import { error, fail } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
 import { ValidationError } from "yup";
-import jwt from "jsonwebtoken";
 import { r } from "rethinkdb-ts";
+import jwt from "jsonwebtoken";
 
 export async function load({}): Promise<{
     item: { machines: Array<Machine>; measurements: Array<Measurement> };
@@ -30,7 +30,7 @@ export const actions = {
             if (err instanceof ValidationError)
                 return fail(400, {
                     errors: {
-                        name: (<string|undefined>err.message)
+                        name: <string | undefined>err.message
                     }
                 });
             throw error(500, <Error>err);

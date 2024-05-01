@@ -5,18 +5,12 @@
 </script>
 
 <main>
-    <div
-        class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 md:h-screen"
-    >
+    <div class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 md:h-screen">
         <div class="text-center xl:max-w-4xl">
-            <h1
-                class="mb-3 text-2xl font-bold leading-tight sm:text-4xl lg:text-5xl"
-            >
+            <h1 class="mb-3 text-2xl font-bold leading-tight sm:text-4xl lg:text-5xl">
                 {$page.status}
             </h1>
-            <p
-                class="mb-5 text-center text-base font-normal md:text-lg"
-            >
+            <p class="mb-5 text-center text-base font-normal md:text-lg">
                 Oops! Looks like you followed a bad link. If you think this is a problem with us,
                 please tell us.
             </p>
