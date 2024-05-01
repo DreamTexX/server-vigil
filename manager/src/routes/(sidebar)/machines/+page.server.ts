@@ -1,9 +1,9 @@
 import { batchGetLatestMeasurementForMachinesById } from "$lib/server/services/measurements";
+import { createMachineSchema, type CreateMachineDto } from "$lib/server/validator";
 import { createMachine, getMachines } from "$lib/server/services/machines";
+import { extractAndValidateFormPayload } from "$lib/server/middleware.js";
 import { type Measurement, type Machine } from "$lib/server/schema";
 import { createToken } from "$lib/server/services/tokens.js";
-import { createMachineSchema, type CreateMachineDto } from "$lib/server/validator";
-import { extractAndValidateFormPayload } from "$lib/server/middleware.js";
 
 export async function load(): Promise<{
     item: { machines: Array<Machine>; measurements: Array<Measurement> };
@@ -17,7 +17,10 @@ export async function load(): Promise<{
 
 export const actions = {
     default: async function ({ request }) {
-        const { payload, fail } = await extractAndValidateFormPayload<CreateMachineDto>(request, createMachineSchema);
+        const { payload, fail } = await extractAndValidateFormPayload<CreateMachineDto>(
+            request,
+            createMachineSchema
+        );
         if (fail) {
             return fail;
         }

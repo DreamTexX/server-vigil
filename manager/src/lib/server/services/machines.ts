@@ -1,8 +1,8 @@
 import { type Machine } from "$lib/server/schema";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
-import { r } from "rethinkdb-ts";
 import { error } from "@sveltejs/kit";
+import { r } from "rethinkdb-ts";
 
 export async function getMachine(id: string): Promise<Machine | undefined> {
     const results = await r
@@ -35,8 +35,8 @@ export async function createMachine(name: string): Promise<Machine> {
 
     if (results.inserted) {
         return { ...insertedData, id: results.generated_keys![0] };
-    } 
-    
+    }
+
     if (results.errors > 0) {
         throw error(500, results.first_error);
     }
