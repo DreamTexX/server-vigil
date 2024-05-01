@@ -37,7 +37,9 @@ export async function subscribeMeasurements(): Promise<RCursor<Changes<Measureme
     return cursor;
 }
 
-export async function subscribeMeasurementByMachineId(machineId: string): Promise<RCursor<Changes<Measurement>>> {
+export async function subscribeMeasurementByMachineId(
+    machineId: string
+): Promise<RCursor<Changes<Measurement>>> {
     const cursor = await r
         .db(env.DATABASE_NAME)
         .table("measurements")

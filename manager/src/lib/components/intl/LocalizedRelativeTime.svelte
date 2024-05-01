@@ -7,7 +7,7 @@
     export let language: string;
 
     let { value, unitValue } = toRelativeLocalDateWithUnit(date, language);
-    let update: NodeJS.Timeout;
+    let update: ReturnType<typeof setTimeout>;
 
     function runUpdate() {
         clearInterval(update);

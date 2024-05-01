@@ -9,7 +9,7 @@
     export let form: ActionData;
     export let open: boolean = false;
     let copyIcon: ComponentType = Copy;
-    let copyResetTimeout: NodeJS.Timeout;
+    let copyResetTimeout: ReturnType<typeof setTimeout>;
 
     function close() {
         open = false;

@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "manager"
+    },
+    {
+      "path": "agent"
+    }
+  ],
+  "settings": {
+    "eslint.probe": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "html",
+      "vue",
+      "markdown",
+      "svelte"
+    ],
+    "eslint.validate": [
+        "svelte"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[svelte]": {
+      "editor.defaultFormatter": "svelte.svelte-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  }
+}

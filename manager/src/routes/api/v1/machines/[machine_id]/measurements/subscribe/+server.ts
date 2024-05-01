@@ -1,6 +1,6 @@
-import type { Measurement } from "$lib/server/schema.js";
 import { subscribeMeasurementByMachineId } from "$lib/server/services/measurements";
 import type { Changes, RethinkDBError } from "rethinkdb-ts";
+import type { Measurement } from "$lib/server/schema.js";
 
 export async function GET({ params }) {
     try {

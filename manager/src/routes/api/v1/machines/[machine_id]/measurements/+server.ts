@@ -1,11 +1,11 @@
 import { extractAndValidateJsonPayload, requireMachineToken } from "$lib/server/middleware";
 import { createMeasurementSchema, type CreateMeasurementDto } from "$lib/server/validator";
 import { getMeasurementsForMachineById } from "$lib/server/services/measurements";
+import type { Measurement } from "$lib/server/schema.js";
+import { r, type WriteResult } from "rethinkdb-ts";
 import { error, json } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { connect } from "$lib/server/db";
-import { r, type WriteResult } from "rethinkdb-ts";
-import type { Measurement } from "$lib/server/schema.js";
 
 export async function GET({ params }) {
     return json(await getMeasurementsForMachineById(params.machine_id));

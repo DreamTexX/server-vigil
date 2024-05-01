@@ -9,7 +9,7 @@ import { ValidationError } from "yup";
 import { r } from "rethinkdb-ts";
 import jwt from "jsonwebtoken";
 
-export async function load({}): Promise<{
+export async function load(): Promise<{
     item: { machines: Array<Machine>; measurements: Array<Measurement> };
 }> {
     const machines: Array<Machine> = await getMachines();
