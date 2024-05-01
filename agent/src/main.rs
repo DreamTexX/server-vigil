@@ -19,6 +19,8 @@ struct Machine {
 #[derive(Debug, Clone, Deserialize)]
 struct Claims {
     machine: Machine,
+    #[serde(rename = "baseUrl")]
+    base_url: String,
 }
 
 fn main() {
@@ -26,7 +28,8 @@ fn main() {
     let token_str = &args[1];
 
     let token: Token<Header, Claims, _> = Token::parse_unverified(token_str).unwrap();
-    let machine = &token.claims().machine;
+    let claims = token.claims();
+    let machine = &claims.machine;
 
     let hostname = fs::read_to_string("/proc/sys/kernel/hostname").unwrap();
     let hostname = hostname.trim();
@@ -55,7 +58,7 @@ fn main() {
     };
 
     let client = reqwest::blocking::Client::new();
-    let response = client.post(format!("http://manager:5173/api/v1/machines/{}/measurements", machine.id))
+    let response = client.post(format!("{}api/v1/machines/{}/measurements", claims.base_url, machine.id))
         .bearer_auth(token_str)
         .json(&measurement)
         .send()

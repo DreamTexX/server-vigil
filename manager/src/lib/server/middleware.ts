@@ -1,8 +1,8 @@
-import type { AnyObject, ObjectSchema } from "yup";
+import { ValidationError, type AnyObject, type ObjectSchema } from "yup";
+import { error, fail, type ActionFailure } from "@sveltejs/kit";
 import type { JwtPayload } from "jsonwebtoken";
 import { env } from "$env/dynamic/private";
 import type { Machine } from "./schema";
-import { error } from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 
 export function requireMachineToken(request: Request, machineId: string): Machine {
@@ -35,8 +35,34 @@ export async function extractAndValidateJsonPayload<T>(
     schema: ObjectSchema<AnyObject>
 ): Promise<T> {
     try {
-        return (await schema.validate(await request.json())) as T;
+        return schema.validate(await request.json()) as Promise<T>;
     } catch (err) {
+        throw error(500, <Error>err);
+    }
+}
+
+export async function extractAndValidateFormPayload<T>(
+    request: Request,
+    schema: ObjectSchema<AnyObject>
+): Promise<
+    | { payload?: undefined; fail: ActionFailure<{ errors: { name: string | undefined } }> }
+    | { payload: T; fail?: undefined }
+> {
+    try {
+        return {
+            payload: (await schema.validate(
+                Object.fromEntries((await request.formData()).entries())
+            )) as T
+        };
+    } catch (err) {
+        if (err instanceof ValidationError)
+            return {
+                fail: fail(400, {
+                    errors: {
+                        name: err.message[0].toUpperCase() + err.message.substring(1) + "."
+                    }
+                })
+            };
         throw error(500, <Error>err);
     }
 }
