@@ -7,9 +7,9 @@ export interface Breadcrumb {
     label: string;
     href?: string;
 }
-export type LangStoreValue = Array<Breadcrumb>;
-export type LangStore = Writable<LangStoreValue>;
+export type BreadcrumbStoreValue = Array<Breadcrumb>;
+export type BreadcrumbStore = Writable<BreadcrumbStoreValue>;
 
-export function getBreadcrumbsStore(): LangStore {
-    return useWritableContext<LangStoreValue>(LANG_STORE_CONTEXT_KEY, []);
+export function getBreadcrumbsStore(): BreadcrumbStore {
+    return useWritableContext<BreadcrumbStoreValue>(LANG_STORE_CONTEXT_KEY, []);
 }

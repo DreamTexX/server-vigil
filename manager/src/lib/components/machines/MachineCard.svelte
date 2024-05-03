@@ -1,10 +1,13 @@
 <script lang="ts">
     import type { Machine, Measurement } from "$lib/server/schema";
-    import { goto } from "$app/navigation";
     import LocalizedRelativeTime from "../intl/LocalizedRelativeTime.svelte";
+    import { localizeUrl } from "../intl/url-builder";
+    import { getLangStore } from "$lib/stores/lang.store";
 
     export let machine: Machine;
     export let measurement: Measurement | undefined;
+
+    const langStore = getLangStore();
 
     let differenceInMinutes = 0;
 
@@ -18,7 +21,7 @@
 <div class="card bg-base-100 shadow-xl">
     <div class="card-body">
         <div class="flex items-center justify-between gap-2">
-            <a href="/machines/{machine.id}">
+            <a href={localizeUrl("/machines/" + machine.id)} class="w-full">
                 <h5 class="text-lg font-bold">
                     {machine.name}
                 </h5>
@@ -47,12 +50,7 @@
                         <button>Edit</button>
                     </li>
                     <li>
-                        <button
-                            on:click={() =>
-                                goto("/machines/" + machine.id, { state: { delete: true } })}
-                        >
-                            Delete
-                        </button>
+                        <a href={localizeUrl("/machines/" + machine.id + "?delete")}>Delete</a>
                     </li>
                 </ul>
             </div>
@@ -64,10 +62,10 @@
                     class="badge tooltip"
                     class:badge-success={differenceInMinutes <= 5}
                     class:badge-error={differenceInMinutes > 5}
-                    data-tip={measurement.createdAt.toLocaleString()}
+                    data-tip={measurement.createdAt.toLocaleString($langStore)}
                 >
                     Last Ping: {#key measurement.id}
-                        <LocalizedRelativeTime date={measurement.createdAt} language="en-US" />
+                        <LocalizedRelativeTime date={measurement.createdAt} language={$langStore} />
                     {/key}
                 </div>
                 <br />

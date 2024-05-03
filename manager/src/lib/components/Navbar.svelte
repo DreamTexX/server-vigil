@@ -2,6 +2,7 @@
     import Breadcrumbs from "./Breadcrumbs.svelte";
     import Logo from "$lib/assets/Logo.svelte";
     import ThemeSwitch from "./ThemeSwitch.svelte";
+    import LangSwitch from "./LangSwitch.svelte";
 
     export let drawerHidden: boolean;
 </script>
@@ -39,7 +40,10 @@
             <Breadcrumbs />
         </div>
     </div>
-    <div class="flex-none">
+    <div class="flex flex-none gap-2">
+        <div class="hidden sm:block">
+            <LangSwitch />
+        </div>
         <ThemeSwitch />
     </div>
 </nav>

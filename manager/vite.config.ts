@@ -3,12 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     plugins: [sveltekit()],
-    server: {
-        watch: {
-            usePolling: true
-        }
-    },
     ssr: {
-        noExternal: ["chart.js"]
+        noExternal: ["chart.js", "lucide-svelte"]
     }
 });

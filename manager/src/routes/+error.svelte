@@ -2,6 +2,7 @@
     import "../app.pcss";
 
     import { page } from "$app/stores";
+    import { localizeUrl } from "$lib/components/intl/url-builder";
 </script>
 
 <main>
@@ -14,7 +15,7 @@
                 Oops! Looks like you followed a bad link. If you think this is a problem with us,
                 please tell us.
             </p>
-            <a href="/" class="btn btn-primary">
+            <a href={localizeUrl("/")} class="btn btn-primary">
                 <svg
                     class="-ml-1 mr-2 h-5 w-5"
                     fill="currentColor"

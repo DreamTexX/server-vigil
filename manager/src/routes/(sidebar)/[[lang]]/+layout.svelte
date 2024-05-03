@@ -2,7 +2,12 @@
     import Breadcrumbs from "$lib/components/Breadcrumbs.svelte";
     import Navbar from "$lib/components/Navbar.svelte";
     import Sidebar from "$lib/components/Sidebar.svelte";
+    import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
+    import { getLangStore, type LangStoreValue } from "$lib/stores/lang.store";
+    import { page } from "$app/stores";
 
+    getBreadcrumbsStore();
+    getLangStore($page.params["lang"] as LangStoreValue);
     let drawerHidden: boolean = true;
 </script>
 
