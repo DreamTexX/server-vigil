@@ -1,14 +1,15 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import type { ActionData } from "../../../routes/(sidebar)/machines/$types";
     import Drawer from "../Drawer.svelte";
-    import Copy from "$lib/assets/icons/Copy.svelte";
-    import CheckSquared from "$lib/assets/icons/CheckSquared.svelte";
+    import CopyIcon from "lucide-svelte/icons/copy";
+    import CopyCheckIcon from "lucide-svelte/icons/copy-check";
     import type { ComponentType } from "svelte";
+    import type { ActionData } from "../../../routes/(sidebar)/[[lang]]/machines/$types";
 
     export let form: ActionData;
     export let open: boolean = false;
-    let copyIcon: ComponentType = Copy;
+
+    let copyIcon: ComponentType = CopyIcon;
     let copyResetTimeout: ReturnType<typeof setTimeout>;
 
     function close() {
@@ -18,8 +19,8 @@
     async function copyToken() {
         clearTimeout(copyResetTimeout);
         await navigator.clipboard.writeText(form!.item!.token);
-        copyIcon = CheckSquared;
-        copyResetTimeout = setTimeout(() => (copyIcon = Copy), 1000);
+        copyIcon = CopyCheckIcon;
+        copyResetTimeout = setTimeout(() => (copyIcon = CopyIcon), 1000);
     }
 </script>
 
@@ -44,7 +45,7 @@
                         value={form.item.token}
                     />
                     <button class="btn join-item btn-neutral" on:click={copyToken}>
-                        <svelte:component this={copyIcon} />
+                        <svelte:component this={copyIcon} size={24} />
                     </button>
                 </div>
             </label>

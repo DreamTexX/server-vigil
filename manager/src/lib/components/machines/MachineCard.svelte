@@ -2,12 +2,11 @@
     import type { Machine, Measurement } from "$lib/server/schema";
     import LocalizedRelativeTime from "../intl/LocalizedRelativeTime.svelte";
     import { localizeUrl } from "../intl/url-builder";
-    import { getLangStore } from "$lib/stores/lang.store";
+    import { langStore } from "$lib/stores/lang.store";
+    import EllipsisVerticalIcon from "lucide-svelte/icons/ellipsis-vertical";
 
     export let machine: Machine;
     export let measurement: Measurement | undefined;
-
-    const langStore = getLangStore();
 
     let differenceInMinutes = 0;
 
@@ -28,22 +27,7 @@
             </a>
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="feather feather-more-vertical"
-                    >
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="12" cy="5" r="1"></circle>
-                        <circle cx="12" cy="19" r="1"></circle>
-                    </svg>
+                    <EllipsisVerticalIcon size={18} />
                 </div>
                 <ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow">
                     <li>

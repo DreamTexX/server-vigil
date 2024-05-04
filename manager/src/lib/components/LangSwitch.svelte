@@ -1,8 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { SupportedLangs, getLangStore, type LangStoreValue } from "$lib/stores/lang.store";
+    import { SupportedLangs, langStore, type LangStoreValue } from "$lib/stores/lang.store";
 
-    let langStore = getLangStore();
     let keys: [LangStoreValue] = <[LangStoreValue]>Object.keys(SupportedLangs);
 
     function buildRoute(lang: LangStoreValue, current: string): string {

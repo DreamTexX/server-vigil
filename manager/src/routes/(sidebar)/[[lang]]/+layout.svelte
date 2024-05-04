@@ -3,11 +3,16 @@
     import Navbar from "$lib/components/Navbar.svelte";
     import Sidebar from "$lib/components/Sidebar.svelte";
     import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
-    import { getLangStore, type LangStoreValue } from "$lib/stores/lang.store";
+    import { langStore, type LangStoreValue } from "$lib/stores/lang.store";
     import { page } from "$app/stores";
+    import { dictionaryStore } from "$lib/stores/dictionary.store";
+
+    export let data;
 
     getBreadcrumbsStore();
-    getLangStore($page.params["lang"] as LangStoreValue);
+    langStore.set($page.params["lang"] as LangStoreValue);
+    dictionaryStore.set(data.dictionary);
+
     let drawerHidden: boolean = true;
 </script>
 

@@ -5,6 +5,7 @@
     import SlidersIcon from "lucide-svelte/icons/sliders-vertical";
     import { localizeUrl } from "./intl/url-builder";
     import LangSwitch from "./LangSwitch.svelte";
+    import { _ } from "../stores/i18n.store";
 
     export let drawerHidden: boolean = true;
 
@@ -13,9 +14,9 @@
     };
 
     let items = [
-        { name: "Dashboard", href: "/", icon: ShieldIcon },
-        { name: "Machines", href: "/machines", icon: ServerIcon },
-        { name: "Settings", href: "/settings", icon: SlidersIcon }
+        { name: $_("navigation", "sidebar", "dashboard"), href: "/", icon: ShieldIcon },
+        { name: $_("navigation", "sidebar", "machines"), href: "/machines", icon: ServerIcon },
+        { name: $_("navigation", "sidebar", "settings"), href: "/settings", icon: SlidersIcon }
     ];
 </script>
 

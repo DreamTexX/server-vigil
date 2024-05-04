@@ -1,5 +1,5 @@
 <script lang="ts">
-    import X from "$lib/assets/icons/X.svelte";
+    import XIcon from "lucide-svelte/icons/x";
 
     export let open: boolean = false;
     export let title: string | undefined = undefined;
@@ -18,7 +18,7 @@
             {title ?? ""}
         </h5>
         <button class="btn btn-ghost btn-sm" on:click={closeDrawer}>
-            <X />
+            <XIcon size={24} />
         </button>
     </header>
     <main class="px-8 py-4">

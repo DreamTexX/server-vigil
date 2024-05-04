@@ -3,12 +3,10 @@
     import Chart from "chart.js/auto";
     import type { Measurement } from "$lib/server/schema";
     import MaximizeIcon from "lucide-svelte/icons/maximize";
-    import { getLangStore } from "$lib/stores/lang.store";
+    import { langStore } from "$lib/stores/lang.store";
 
     export let machineId: string;
     export let initial: Array<Measurement>;
-
-    const langStore = getLangStore();
 
     let canvas: HTMLCanvasElement | undefined;
     let chart: Chart | undefined;

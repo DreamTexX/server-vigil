@@ -7,12 +7,10 @@
     import GaugeIcon from "lucide-svelte/icons/gauge";
     import SettingsIcon from "lucide-svelte/icons/settings-2";
     import LocalizedRelativeTime from "$lib/components/intl/LocalizedRelativeTime.svelte";
-    import { getLangStore } from "$lib/stores/lang.store.js";
+    import { langStore } from "$lib/stores/lang.store.js";
 
     export let form;
     export let data;
-
-    const langStore = getLangStore();
 
     let machine = data.item.machine;
     let deleteDrawerOpen: boolean = $page.url.searchParams.has("delete") ?? false;

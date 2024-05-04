@@ -1,0 +1,9 @@
+{
+    "navigation": {
+        "sidebar": {
+            "dashboard": "Dashboard",
+            "machines": "Machines",
+            "settings": "Settings"
+        }
+    }
+}
