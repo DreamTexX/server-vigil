@@ -41,10 +41,10 @@
                 "to": "$ref{refs.to}",
                 "interval": "$ref{refs.interval}",
                 "intervalSteps": {
-                    "second": "seconde",
-                    "minute": "minute",
-                    "hour": "heure",
-                    "day": "jour"
+                    "second": "Seconde",
+                    "minute": "Minute",
+                    "hour": "Heure",
+                    "day": "Jour"
                 }
             },
             "title": "Aperçu des machines",
