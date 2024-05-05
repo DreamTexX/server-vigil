@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
+    import { _ } from "$lib/stores/i18n.store";
     import { SupportedLangs, langStore, type LangStoreValue } from "$lib/stores/lang.store";
 
     let keys: [LangStoreValue] = <[LangStoreValue]>Object.keys(SupportedLangs);
@@ -13,7 +14,7 @@
 
 <div class="dropdown dropdown-top sm:dropdown-end sm:dropdown-bottom max-sm:w-full">
     <div tabindex="0" role="button" class="btn btn-ghost max-sm:w-full">
-        <span class="sm:hidden">Change Language:</span>
+        <span class="sm:hidden">{$_("components.langSwitch.changeLang")}:</span>
         <span>{SupportedLangs[$langStore]}</span>
     </div>
     <ul

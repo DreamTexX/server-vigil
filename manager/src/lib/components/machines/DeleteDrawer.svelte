@@ -1,7 +1,8 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { Machine } from "$lib/server/schema";
-    import type { ActionData } from "../../../routes/(sidebar)/machines/[id]/$types";
+    import { _ } from "$lib/stores/i18n.store";
+    import type { ActionData } from "../../../routes/(sidebar)/[[lang]]/machines/[id]/$types";
     import Drawer from "../Drawer.svelte";
 
     export let form: ActionData;
@@ -9,7 +10,7 @@
     export let machine: Machine;
 </script>
 
-<Drawer bind:open title="Delete Machine">
+<Drawer bind:open title={$_("components.machines.deleteDrawer.title")}>
     <form
         method="post"
         action="/machines/{machine.id}?/delete"
@@ -17,22 +18,25 @@
         use:enhance
     >
         <p>
-            This action will permanently delete this machine and all its measurements from this
-            application. <span class="font-bold">It will not delete the agent or server data</span>
-            .
+            {$_("components.machines.deleteDrawer.warn1")}
+            <span class="font-bold">
+                {$_("components.machines.deleteDrawer.warn2")}
+            </span>
         </p>
         <p>
-            To confirm and delete, please type <kbd class="kbd kbd-sm">{machine.name}</kbd>
-            .
+            {$_("components.machines.deleteDrawer.confirmMsg")}
+            <kbd class="kbd kbd-sm">{machine.name}</kbd>
         </p>
         <label class="form-control w-full">
             <div class="label">
-                <span class="label-text">Confirm with Machine Name</span>
+                <span class="label-text">
+                    {$_("components.machines.deleteDrawer.confirmLabel")}
+                </span>
             </div>
             <input
                 type="text"
                 name="name"
-                placeholder="Machine Name"
+                placeholder={$_("components.machines.deleteDrawer.confirmPlaceholder")}
                 on:keydown={() => {
                     if (form && form.errors) form.errors.name = undefined;
                 }}
@@ -46,6 +50,8 @@
                 </div>
             {/if}
         </label>
-        <button type="submit" class="btn btn-error">Delete</button>
+        <button type="submit" class="btn btn-error">
+            {$_("components.machines.deleteDrawer.deleteBtn")}
+        </button>
     </form>
 </Drawer>

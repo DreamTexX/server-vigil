@@ -4,6 +4,7 @@
     import type { Measurement } from "$lib/server/schema";
     import MaximizeIcon from "lucide-svelte/icons/maximize";
     import { langStore } from "$lib/stores/lang.store";
+    import { _ } from "$lib/stores/i18n.store";
 
     export let machineId: string;
     export let initial: Array<Measurement>;
@@ -98,7 +99,9 @@
 <div class="card bg-base-100 shadow-xl">
     <div class="card-body">
         <div class="flex items-center justify-between gap-2">
-            <h5 class="text-lg">Memory History</h5>
+            <h5 class="text-lg">
+                {$_("components.machines.memoryChart.title")}
+            </h5>
             <div class="flex items-center gap-2">
                 <button>
                     <MaximizeIcon size={20} />

@@ -5,6 +5,7 @@
     import { onMount, onDestroy } from "svelte";
     import type { Measurement } from "$lib/server/schema";
     import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
+    import { _ } from "$lib/stores/i18n.store";
 
     getBreadcrumbsStore().set([{ label: "Home", href: "/" }, { label: "Machines" }]);
 
@@ -40,8 +41,12 @@
 <CreateDrawer bind:open={createDialogOpen} bind:form />
 
 <div class="mb-4 flex items-center justify-between">
-    <h1 class="text-2xl font-medium">Overview Machines</h1>
-    <button class="btn btn-primary" on:click={openCreateDialog}>Add new Machine</button>
+    <h1 class="text-2xl font-medium">
+        {$_("pages.machines.title")}
+    </h1>
+    <button class="btn btn-primary" on:click={openCreateDialog}>
+        {$_("pages.machines.addNewMachine")}
+    </button>
 </div>
 
 {#if data.item.machines.length > 0}
@@ -54,5 +59,5 @@
         <div></div>
     </div>
 {:else}
-    <NoContent buttonName="Add new Machine" />
+    <NoContent buttonName={$_("pages.machines.addNewMachine")} />
 {/if}

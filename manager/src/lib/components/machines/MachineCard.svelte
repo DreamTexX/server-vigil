@@ -4,6 +4,7 @@
     import { localizeUrl } from "../intl/url-builder";
     import { langStore } from "$lib/stores/lang.store";
     import EllipsisVerticalIcon from "lucide-svelte/icons/ellipsis-vertical";
+    import { _ } from "$lib/stores/i18n.store";
 
     export let machine: Machine;
     export let measurement: Measurement | undefined;
@@ -31,10 +32,14 @@
                 </div>
                 <ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-200 p-2 shadow">
                     <li>
-                        <button>Edit</button>
+                        <button>
+                            {$_("components.machines.machineCard.edit")}
+                        </button>
                     </li>
                     <li>
-                        <a href={localizeUrl("/machines/" + machine.id + "?delete")}>Delete</a>
+                        <a href={localizeUrl("/machines/" + machine.id + "?delete")}>
+                            {$_("components.machines.machineCard.delete")}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -48,18 +53,18 @@
                     class:badge-error={differenceInMinutes > 5}
                     data-tip={measurement.createdAt.toLocaleString($langStore)}
                 >
-                    Last Ping: {#key measurement.id}
+                    {$_("components.machines.machineCard.lastPing")}: {#key measurement.id}
                         <LocalizedRelativeTime date={measurement.createdAt} language={$langStore} />
                     {/key}
                 </div>
                 <br />
                 <div class="badge badge-ghost">
-                    <span class="font-bold">Hostname:</span>
+                    <span class="font-bold">{$_("components.machines.machineCard.hostname")}:</span>
                     &nbsp;{measurement.hostname}
                 </div>
             {/if}
             <div class="badge badge-ghost">
-                <span class="font-bold">Group:</span>
+                <span class="font-bold">{$_("components.machines.machineCard.group")}:</span>
                 &nbsp;Default
             </div>
         </div>

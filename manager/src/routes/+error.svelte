@@ -3,6 +3,7 @@
 
     import { page } from "$app/stores";
     import { localizeUrl } from "$lib/components/intl/url-builder";
+    import { _ } from "$lib/stores/i18n.store";
 </script>
 
 <main>
@@ -12,8 +13,7 @@
                 {$page.status}
             </h1>
             <p class="mb-5 text-center text-base font-normal md:text-lg">
-                Oops! Looks like you followed a bad link. If you think this is a problem with us,
-                please tell us.
+                {$_("pages.error.badLink")}
             </p>
             <a href={localizeUrl("/")} class="btn btn-primary">
                 <svg
@@ -28,7 +28,7 @@
                         clip-rule="evenodd"
                     />
                 </svg>
-                Go back Home
+                {$_("pages.error.goBack")}
             </a>
         </div>
     </div>

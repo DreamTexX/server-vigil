@@ -14,9 +14,9 @@
     };
 
     let items = [
-        { name: $_("navigation", "sidebar", "dashboard"), href: "/", icon: ShieldIcon },
-        { name: $_("navigation", "sidebar", "machines"), href: "/machines", icon: ServerIcon },
-        { name: $_("navigation", "sidebar", "settings"), href: "/settings", icon: SlidersIcon }
+        { name: $_("navigation.sidebar.dashboard"), href: "/", icon: ShieldIcon },
+        { name: $_("navigation.sidebar.machines"), href: "/machines", icon: ServerIcon },
+        { name: $_("navigation.sidebar.settings"), href: "/settings", icon: SlidersIcon }
     ];
 </script>
 

@@ -5,6 +5,7 @@
     import CopyCheckIcon from "lucide-svelte/icons/copy-check";
     import type { ComponentType } from "svelte";
     import type { ActionData } from "../../../routes/(sidebar)/[[lang]]/machines/$types";
+    import { _ } from "$lib/stores/i18n.store";
 
     export let form: ActionData;
     export let open: boolean = false;
@@ -24,18 +25,22 @@
     }
 </script>
 
-<Drawer bind:open title="Add new Machine">
+<Drawer bind:open title={$_("components.machines.createDrawer.title")}>
     {#if form?.item}
         <div class="grid grid-cols-1 gap-4">
             <!-- prettier-ignore -->
             <p>
-                Use the following token to connect your agent to this instance.
-                <span class="font-bold">This token will only be shown once</span>.
-                Use the machines settings page to generate a new token.
+                {$_("components.machines.createDrawer.copyInfo1")}
+                <span class="font-bold">
+                    {$_("components.machines.createDrawer.copyInfo2")}
+                </span>
+                {$_("components.machines.createDrawer.copyInfo3")}
             </p>
             <label class="form-control w-full">
                 <div class="label">
-                    <span class="label-text">Machine Token</span>
+                    <span class="label-text">
+                        {$_("components.machines.createDrawer.machineToken")}
+                    </span>
                 </div>
                 <div class="join">
                     <input
@@ -49,18 +54,22 @@
                     </button>
                 </div>
             </label>
-            <button class="btn btn-secondary" on:click={close}>Close</button>
+            <button class="btn btn-secondary" on:click={close}>
+                {$_("components.machines.createDrawer.closeBtn")}
+            </button>
         </div>
     {:else}
         <form method="post" class="grid grid-cols-1 gap-4" use:enhance>
             <label class="form-control w-full">
                 <div class="label">
-                    <span class="label-text">Machine Name</span>
+                    <span class="label-text">
+                        {$_("components.machines.createDrawer.machineNameLabel")}
+                    </span>
                 </div>
                 <input
                     type="text"
                     name="name"
-                    placeholder="Machine Name"
+                    placeholder={$_("components.machines.createDrawer.machineNamePlaceholder")}
                     on:keydown={() => {
                         if (form && form.errors) form.errors.name = undefined;
                     }}
@@ -74,7 +83,9 @@
                     </div>
                 {/if}
             </label>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">
+                {$_("components.machines.createDrawer.addBtn")}
+            </button>
         </form>
     {/if}
 </Drawer>

@@ -1,9 +1,94 @@
 {
+    "refs": {
+        "machines": "Machines",
+        "dashboard": "Dashboard",
+        "settings": "Settings",
+        "measurements": "Measurements",
+        "filter": "Filter",
+        "from": "From",
+        "to": "To",
+        "interval": "Interval",
+        "edit": "Edit",
+        "delete": "Delete",
+        "machineName": "Machine Name",
+        "close": "Close"
+    },
     "navigation": {
         "sidebar": {
-            "dashboard": "Dashboard",
-            "machines": "Machines",
-            "settings": "Settings"
+            "dashboard": "$ref{refs.dashboard}",
+            "machines": "$ref{refs.machines}",
+            "settings": "$ref{refs.settings}"
+        },
+        "main": {
+            "breadcrumbs": {
+                "home": "Home",
+                "dashboard": "$ref{refs.dashboard}",
+                "machines": "$ref{refs.machines}"
+            }
+        }
+    },
+    "pages": {
+        "error": {
+            "badLink": "Oops! Looks like you followed a bad link. If you think this is a problem with us, please tell us.",
+            "goBack": "Go back Home"
+        },
+        "machines": {
+            "_id": {
+                "measurements": "$ref{refs.measurements}",
+                "settings": "$ref{refs.settings}",
+                "filter": "$ref{refs.filter}",
+                "from": "$ref{refs.from}",
+                "to": "$ref{refs.to}",
+                "interval": "$ref{refs.interval}",
+                "intervalSteps": {
+                    "second": "Second",
+                    "minute": "Minute",
+                    "hour": "Hour",
+                    "day": "Day"
+                }
+            },
+            "title": "Overview Machines",
+            "addNewMachine": "Add new Machine"
+        }
+    },
+    "components": {
+        "noContent": {
+            "text": "This page is currently empty. Click \"${buttonName}\" to get started."
+        },
+        "langSwitch": {
+            "changeLang": "Change Language"
+        },
+        "machines": {
+            "machineCard": {
+                "edit": "$ref{refs.edit}",
+                "delete": "$ref{refs.delete}",
+                "lastPing": "Last Ping",
+                "hostname": "Hostname",
+                "group": "Group"
+            },
+            "deleteDrawer": {
+                "title": "Delete Machine",
+                "warn1": "This action will permanently delete this machine and all its measurements from this application.",
+                "warn2": "It will not delete the agent or server data.",
+                "confirmMsg": "To confirm and delete, please type",
+                "confirmLabel": "Confirm with $ref{refs.machineName}",
+                "confirmPlaceholder": "$ref{refs.machineName}",
+                "deleteBtn": "$ref{refs.delete}"
+            },
+            "createDrawer": {
+                "title": "Add new Machine",
+                "copyInfo1": "Use the following token to connect your agent to this instance.",
+                "copyInfo2": "This token will only be shown once.",
+                "copyInfo3": "Use the machines settings page to generate a new token.",
+                "machineToken": "Machine Token",
+                "closeBtn": "$ref{refs.close}",
+                "machineNameLabel": "$ref{refs.machineName}",
+                "machineNamePlaceholder": "$ref{refs.machineName}",
+                "addBtn": "Add"
+            },
+            "memoryChart": {
+                "title": "Memory History"
+            }
         }
     }
 }
