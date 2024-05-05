@@ -1,9 +1,94 @@
 {
+    "refs": {
+        "machines": "Maschinen",
+        "dashboard": "Armaturenbrett",
+        "settings": "Einstellungen",
+        "measurements": "Messungen",
+        "filter": "Filter",
+        "from": "von",
+        "to": "bis",
+        "interval": "Intervall",
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "machineName": "Maschinenname",
+        "close": "Schließen"
+    },
     "navigation": {
         "sidebar": {
-            "dashboard": "Übersicht",
-            "machines": "Maschinen",
-            "settings": "Einstellungen"
+            "dashboard": "$ref{refs.dashboard}",
+            "machines": "$ref{refs.machines}",
+            "settings": "$ref{refs.settings}"
+        },
+        "main": {
+            "breadcrumbs": {
+                "home": "Startseite",
+                "dashboard": "$ref{refs.dashboard}",
+                "machines": "$ref{refs.machines}"
+            }
+        }
+    },
+    "pages": {
+        "error": {
+            "badLink": "Oh, Verzeihung! Es sieht so aus, als hättest du einen ungültigen Link verwendet. Wenn du denkst, dass dies ein Problem unsererseits ist, sag uns bitte Bescheid.",
+            "goBack": "Zurück zur Startseite"
+        },
+        "machines": {
+            "_id": {
+                "measurements": "$ref{refs.measurements}",
+                "settings": "$ref{refs.settings}",
+                "filter": "$ref{refs.filter}",
+                "from": "$ref{refs.from}",
+                "to": "$ref{refs.to}",
+                "interval": "$ref{refs.interval}",
+                "intervalSteps": {
+                    "second": "Sekunde",
+                    "minute": "Minute",
+                    "hour": "Stunde",
+                    "day": "Tag"
+                }
+            },
+            "title": "Maschinenübersicht",
+            "addNewMachine": "Neue Maschine hinzufügen"
+        }
+    },
+    "components": {
+        "noContent": {
+            "text": "Diese Seite ist derzeit leer. Klicke auf \"${buttonName}\", um zu beginnen."
+        },
+        "langSwitch": {
+            "changeLang": "Sprache ändern"
+        },
+        "machines": {
+            "machineCard": {
+                "edit": "$ref{refs.edit}",
+                "delete": "$ref{refs.delete}",
+                "lastPing": "Letzter Kontakt",
+                "hostname": "Rechnername",
+                "group": "Gruppe"
+            },
+            "deleteDrawer": {
+                "title": "Maschine löschen",
+                "warn1": "Diese Aktion wird diese Maschine und alle ihre Messungen dauerhaft aus dieser Anwendung löschen.",
+                "warn2": "Es werden keine Daten des Agenten oder Servers gelöscht.",
+                "confirmMsg": "Zur Bestätigung und Löschung bitte eingeben",
+                "confirmLabel": "Bestätigen mit $ref{refs.machineName}",
+                "confirmPlaceholder": "$ref{refs.machineName}",
+                "deleteBtn": "$ref{refs.delete}"
+            },
+            "createDrawer": {
+                "title": "Neue Maschine hinzufügen",
+                "copyInfo1": "Verwende das folgende Token, um deinen Agenten mit dieser Instanz zu verbinden.",
+                "copyInfo2": "Dieses Token wird nur einmal angezeigt.",
+                "copyInfo3": "Verwende die Maschineneinstellungsseite, um ein neues Token zu generieren.",
+                "machineToken": "Maschinen-Token",
+                "closeBtn": "$ref{refs.close}",
+                "machineNameLabel": "$ref{refs.machineName}",
+                "machineNamePlaceholder": "$ref{refs.machineName}",
+                "addBtn": "Hinzufügen"
+            },
+            "memoryChart": {
+                "title": "Speicherhistorie"
+            }
         }
     }
 }
