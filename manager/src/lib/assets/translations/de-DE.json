@@ -71,7 +71,7 @@
                 "warn1": "Diese Aktion wird diese Maschine und alle ihre Messungen dauerhaft aus dieser Anwendung löschen.",
                 "warn2": "Es werden keine Daten des Agenten oder Servers gelöscht.",
                 "confirmMsg": "Zur Bestätigung und Löschung bitte eingeben",
-                "confirmLabel": "Bestätigen mit $ref{refs.machineName}",
+                "confirmLabel": "Mit $ref{refs.machineName} bestätigen",
                 "confirmPlaceholder": "$ref{refs.machineName}",
                 "deleteBtn": "$ref{refs.delete}"
             },
