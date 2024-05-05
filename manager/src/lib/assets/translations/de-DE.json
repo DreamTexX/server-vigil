@@ -1,7 +1,7 @@
 {
     "refs": {
         "machines": "Maschinen",
-        "dashboard": "Armaturenbrett",
+        "dashboard": "Übersicht",
         "settings": "Einstellungen",
         "measurements": "Messungen",
         "filter": "Filter",
