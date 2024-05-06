@@ -1,0 +1,94 @@
+{
+    "refs": {
+        "machines": "Machines",
+        "dashboard": "Tableau du bord",
+        "settings": "Paramètres",
+        "measurements": "Valeurs mesurées",
+        "filter": "Filtres",
+        "from": "Du",
+        "to": "Au",
+        "interval": "Intervalle",
+        "edit": "Modifier",
+        "delete": "Effacer",
+        "machineName": "Nom de la machine",
+        "close": "Fermer"
+    },
+    "navigation": {
+        "sidebar": {
+            "dashboard": "$ref{refs.dashboard}",
+            "machines": "$ref{refs.machines}",
+            "settings": "$ref{refs.settings}"
+        },
+        "main": {
+            "breadcrumbs": {
+                "home": "Accueil",
+                "dashboard": "$ref{refs.dashboard}",
+                "machines": "$ref{refs.machines}"
+            }
+        }
+    },
+    "pages": {
+        "error": {
+            "badLink": "Oups ! Il semble que vous avez suivi un mauvais lien. Si vous pensez qu'il s'agit d'un problème, veuillez nous le signaler.",
+            "goBack": "Retour à l'accueil"
+        },
+        "machines": {
+            "_id": {
+                "measurements": "$ref{refs.measurements}",
+                "settings": "$ref{refs.settings}",
+                "filter": "$ref{refs.filter}",
+                "from": "$ref{refs.from}",
+                "to": "$ref{refs.to}",
+                "interval": "$ref{refs.interval}",
+                "intervalSteps": {
+                    "second": "Seconde",
+                    "minute": "Minute",
+                    "hour": "Heure",
+                    "day": "Jour"
+                }
+            },
+            "title": "Aperçu des machines",
+            "addNewMachine": "Ajouter une machine"
+        }
+    },
+    "components": {
+        "noContent": {
+            "text": "Cette page est actuellement vide. Cliquez sur \"${buttonName}\" pour commencer."
+        },
+        "langSwitch": {
+            "changeLang": "Changer langue"
+        },
+        "machines": {
+            "machineCard": {
+                "edit": "$ref{refs.edit}",
+                "delete": "$ref{refs.delete}",
+                "lastPing": "Dernier Ping",
+                "hostname": "Nom de l'hôte",
+                "group": "Groupe"
+            },
+            "deleteDrawer": {
+                "title": "Effacer Machine",
+                "warn1": "Cette action va effacer définitivement cette machine et toutes sa mesures.",
+                "warn2": "Ca ne va pas effacer l'agent de serveur.",
+                "confirmMsg": "Pour confirmer et effacer, veuillez taper",
+                "confirmLabel": "Confirmer avec $ref{refs.machineName}",
+                "confirmPlaceholder": "$ref{refs.machineName}",
+                "deleteBtn": "$ref{refs.delete}"
+            },
+            "createDrawer": {
+                "title": "Ajouter une machine",
+                "copyInfo1": "Utilisez le jeton suivant pour connecter votre agent à cette instance.",
+                "copyInfo2": "Ce jeton ne sera affiché qu'une seule fois.",
+                "copyInfo3": "Utilisez la page des paramètres des machines pour générer un nouveau jeton.",
+                "machineToken": "Jeton de la machine",
+                "closeBtn": "$ref{refs.close}",
+                "machineNameLabel": "$ref{refs.machineName}",
+                "machineNamePlaceholder": "$ref{refs.machineName}",
+                "addBtn": "Ajouter"
+            },
+            "memoryChart": {
+                "title": "Historique d'utilisation de la mémoire"
+            }
+        }
+    }
+}
