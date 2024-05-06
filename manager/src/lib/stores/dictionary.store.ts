@@ -23,5 +23,7 @@ export async function loadSupportedDictionary(lang: LangStoreValue): Promise<Dic
             return import("$lib/assets/translations/de-GANS.json");
         case "en-US":
             return import("$lib/assets/translations/en-US.json");
+        case "de-GAY":
+            return import("$lib/assets/translations/de-GAY.json");
     }
 }

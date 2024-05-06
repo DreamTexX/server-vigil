@@ -6,7 +6,8 @@ export enum SupportedLangs {
     "en-US" = "English",
     "de-DE" = "German",
     "fr-FR" = "French",
-    "de-GANS" = "Gans (sarcastic)"
+    "de-GANS" = "Gans (sarcastic)",
+    "de-GAY" = "German Gay (sarcastic, plz don't cancel me)"
 }
 export const DEFAULT_LANG: LangStoreValue = "en-US";
 
