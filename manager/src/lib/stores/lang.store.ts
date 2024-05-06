@@ -6,7 +6,7 @@ export enum SupportedLangs {
     "en-US" = "English",
     "de-DE" = "German",
     "fr-FR" = "French",
-    "gans-GANS" = "Gans (sarcastic)"
+    "de-GANS" = "Gans (sarcastic)"
 }
 export type LangStoreValue = keyof typeof SupportedLangs;
 export type LangStore = Writable<LangStoreValue>;

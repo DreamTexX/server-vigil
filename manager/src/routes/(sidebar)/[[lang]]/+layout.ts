@@ -12,6 +12,10 @@ export async function load({ params, url }) {
             switch (params.lang) {
                 case "de-DE":
                     return import("$lib/assets/translations/de-DE.json");
+                case "fr-FR":
+                    return import("$lib/assets/translations/fr-FR.json");
+                case "de-GANS":
+                    return import("$lib/assets/translations/de-GANS.json");
             }
 
             return import("$lib/assets/translations/en-US.json");
