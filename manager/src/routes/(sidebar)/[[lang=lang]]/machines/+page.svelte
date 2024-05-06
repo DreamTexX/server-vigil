@@ -7,7 +7,10 @@
     import { getBreadcrumbsStore } from "$lib/stores/breadcrumbs.store";
     import { _ } from "$lib/stores/i18n.store";
 
-    getBreadcrumbsStore().set([{ label: "Home", href: "/" }, { label: "Machines" }]);
+    getBreadcrumbsStore().set([
+        { label: $_("navigation.main.breadcrumbs.home"), href: "/" },
+        { label: $_("navigation.main.breadcrumbs.machines") }
+    ]);
 
     export let data;
     export let form;
