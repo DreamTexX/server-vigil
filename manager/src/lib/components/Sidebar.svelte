@@ -6,12 +6,17 @@
     import { localizeUrl } from "./intl/url-builder";
     import LangSwitch from "./LangSwitch.svelte";
     import { _ } from "../stores/i18n.store";
+    import { onNavigate } from "$app/navigation";
 
     export let drawerHidden: boolean = true;
 
     const closeDrawer = () => {
         drawerHidden = true;
     };
+
+    onNavigate(() => {
+        drawerHidden = true;
+    });
 
     let items = [
         { name: $_("navigation.sidebar.dashboard"), href: "/", icon: ShieldIcon },

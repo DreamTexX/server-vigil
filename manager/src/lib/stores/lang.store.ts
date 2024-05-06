@@ -8,7 +8,9 @@ export enum SupportedLangs {
     "fr-FR" = "French",
     "de-GANS" = "Gans (sarcastic)"
 }
+export const DEFAULT_LANG: LangStoreValue = "en-US";
+
 export type LangStoreValue = keyof typeof SupportedLangs;
 export type LangStore = Writable<LangStoreValue>;
 
-export const langStore: LangStore = writable<LangStoreValue>("en-US");
+export const langStore: LangStore = writable<LangStoreValue>(DEFAULT_LANG);
