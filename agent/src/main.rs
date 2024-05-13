@@ -1,6 +1,7 @@
-use std::{env, fs};
-use jwt::{Header, Token};
+use clap::{arg, command};
+use jsonwebtoken::{Algorithm, DecodingKey, Validation};
 use serde::{Deserialize, Serialize};
+use std::{env, fs};
 
 #[derive(Debug, Clone, Serialize)]
 struct Measurement<'a> {
@@ -13,23 +14,51 @@ struct Measurement<'a> {
 
 #[derive(Debug, Clone, Deserialize)]
 struct Machine {
-    id: String
+    id: String,
 }
 
 #[derive(Debug, Clone, Deserialize)]
 struct Claims {
     machine: Machine,
-    #[serde(rename = "baseUrl")]
-    base_url: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct JWK {
+    n: String,
+    e: String,
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let token_str = &args[1];
+    let matches = command!()
+        .arg(arg!(<host> "Required host url"))
+        .arg(arg!(<token> "Required machine token"))
+        .get_matches();
 
-    let token: Token<Header, Claims, _> = Token::parse_unverified(token_str).unwrap();
-    let claims = token.claims();
-    let machine = &claims.machine;
+    let host = matches
+        .get_one::<String>("host")
+        .expect("`host` is required");
+    let token_str = matches
+        .get_one::<String>("token")
+        .expect("`token` is required");
+
+    let client = reqwest::blocking::Client::new();
+    let jwk_response = client
+        .get(format!("{}.well-known/jwks.json", host))
+        .send()
+        .unwrap();
+    let jwks: Vec<JWK> = jwk_response.json().unwrap();
+    let jwk = jwks.first().unwrap();
+
+    println!("{jwk:?}");
+
+    let token_data = jsonwebtoken::decode::<Claims>(
+        &token_str,
+        &DecodingKey::from_rsa_components(&jwk.n, &jwk.e).unwrap(),
+        &Validation::new(Algorithm::PS256),
+    )
+    .unwrap();
+
+    let machine = token_data.claims.machine;
 
     let hostname = fs::read_to_string("/proc/sys/kernel/hostname").unwrap();
     let hostname = hostname.trim();
@@ -57,8 +86,11 @@ fn main() {
         mem_available,
     };
 
-    let client = reqwest::blocking::Client::new();
-    let response = client.post(format!("{}api/v1/machines/{}/measurements", claims.base_url, machine.id))
+    let response = client
+        .post(format!(
+            "{}api/v1/machines/{}/measurements",
+            host, machine.id
+        ))
         .bearer_auth(token_str)
         .json(&measurement)
         .send()

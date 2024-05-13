@@ -32,6 +32,8 @@
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "cSpell.words": [
+      "jsonwebtoken",
+      "jwks",
       "lucide"
     ],
     "[json]": {
@@ -39,6 +41,9 @@
     },
     "[rust]": {
       "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+    "[shellscript]": {
+      "editor.defaultFormatter": "shakram02.bash-beautify"
     }
   }
 }

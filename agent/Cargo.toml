@@ -6,7 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-jwt = "0.16.0"
+clap = { version = "4.5.4", features = ["cargo"] }
+jsonwebtoken = "9.3.0"
+procfs = "0.16.0"
 reqwest = { version = "0.12.4", features = ["blocking", "json"] }
 serde = { version = "1.0.198", features = ["derive"] }
 serde_json = "1.0.116"

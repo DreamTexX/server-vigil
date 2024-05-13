@@ -1,11 +1,9 @@
 import { ValidationError, type AnyObject, type ObjectSchema } from "yup";
 import { error, fail, type ActionFailure } from "@sveltejs/kit";
-import type { JwtPayload } from "jsonwebtoken";
-import { env } from "$env/dynamic/private";
+import { verifyToken } from "./services/tokens";
 import type { Machine } from "./schema";
-import jwt from "jsonwebtoken";
 
-export function requireMachineToken(request: Request, machineId: string): Machine {
+export async function requireMachineToken(request: Request, machineId: string): Promise<Machine> {
     const authorizationHeader = request.headers.get("authorization");
     if (!authorizationHeader) {
         throw error(401, { message: "unauthorized" });
@@ -18,7 +16,7 @@ export function requireMachineToken(request: Request, machineId: string): Machin
 
     let machine: Machine;
     try {
-        machine = (<JwtPayload>jwt.verify(token, env.JWT_SECRET_KEY, { complete: false })).machine;
+        machine = <Machine>(await verifyToken(token)).machine;
     } catch (err) {
         throw error(401, { message: "unauthorized" });
     }

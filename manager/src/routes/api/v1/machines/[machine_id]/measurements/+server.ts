@@ -12,7 +12,7 @@ export async function GET({ params }) {
 }
 
 export async function POST({ request, params }) {
-    const machine = requireMachineToken(request, params.machine_id);
+    const machine = await requireMachineToken(request, params.machine_id);
     const payload: CreateMeasurementDto = await extractAndValidateJsonPayload(
         request,
         createMeasurementSchema

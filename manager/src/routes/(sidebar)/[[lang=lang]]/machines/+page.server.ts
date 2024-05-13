@@ -25,7 +25,7 @@ export const actions = {
             return fail;
         }
         const machine = await createMachine(payload.name);
-        const token = createToken(machine);
+        const token = await createToken(machine);
 
         return {
             item: {
